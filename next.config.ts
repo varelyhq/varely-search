@@ -1,7 +1,7 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-    allowedDevOrigins: ['ide.varely.co', 'demosearchapp.varely.co'],
+    allowedDevOrigins: ['ide.varely.co', 'demosearchapp.varely.co', 'port5173.varely.co'],
     // assetPrefix: 'https://ide.varely.co',
     images: {
         remotePatterns: [
