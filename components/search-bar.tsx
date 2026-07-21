@@ -5,8 +5,9 @@ import { Logo } from "./logo";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { View } from "./view";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Autosuggest, AutosuggestWrapper } from "./search/autosuggest";
 
 export function SearchBar() {
 
@@ -15,29 +16,44 @@ export function SearchBar() {
     const searchParams = useSearchParams()
 
     const [query, setQuery] = useState(searchParams.get("q") ?? "")
+    const [isFocused, setIsFocused] = useState(false)
 
-    function handleSearch() {
+    const inputRef = useRef<any>(undefined);
+
+    const push = (final_query: string) => {
         const params = new URLSearchParams(searchParams.toString())
-        if (query) {
-            params.set("q", query)
-        } else {
-            params.delete("q")
-        }
+        params.set("q", final_query)
         router.push(`${pathname}?${params.toString()}`)
+        inputRef.current?.blur();
+    }
+
+    const handleSearch = () => {
+        if (query) push(query)
     }
 
     return (
         <View className="flex-row justify-start items-center gap-4">
             <Logo size='sm' />
             <View>
-                <Input 
-                className='min-w-70'
-                value={query}
-                    onChange={e => setQuery(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") handleSearch()
-                    }}
-                />
+                <AutosuggestWrapper>
+                    <Input
+                        className='min-w-70'
+                        value={query}
+                        ref={inputRef}
+                        onChange={e => setQuery(e.target.value)}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") handleSearch()
+                        }}
+                    />
+                    <Autosuggest
+                        className="absolute top-full mt-4"
+                        query={query}
+                        visible={isFocused}
+                        onSelect={v => { push(v); setQuery(v); }}
+                    />
+                </AutosuggestWrapper>
             </View>
             <Button onClick={handleSearch}>
                 Szukaj
