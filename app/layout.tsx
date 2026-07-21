@@ -24,13 +24,12 @@ export default function RootLayout({
             suppressHydrationWarning
             className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
         >
-            <body>
+            <body className="min-h-screen bg-background">
                 <ThemeProvider>
                     <View className={'min-h-screen bg-background'
                         // + ' bg-blue-50 bg-[radial-gradient(#bedbff_1.5px,transparent_1.5px)] [background-size:24px_24px]'
                     }>
                         {/* <Navbar /> */}
-                        {/* <h2 className="text-2xl">cos tam</h2> */}
                         {children}
                         <Footer />
                     </View>
