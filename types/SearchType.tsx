@@ -10,7 +10,7 @@ export type MetaUrl = {
     path: string;
 }
 
-export type Thumbnail = {
+export type ThumbnailType = {
     src: string;
     original: string;
     alt?: string;
@@ -31,6 +31,7 @@ export type Profile = {
 export type SearchQuery = {
     original: string;
     show_strict_warning: boolean;
+    altered: string;
     is_navigational: boolean;
     is_news_breaking: boolean;
     spellcheck_off: boolean;
@@ -74,7 +75,7 @@ export type DiscussionResult = {
     data: DiscussionData;
 }
 
-export type Discussions = {
+export type DiscussionsType = {
     type: "search";
     results: DiscussionResult[];
     mutated_by_goggles: boolean;
@@ -121,7 +122,7 @@ export type InfoboxResult = {
     found_in_urls: string[];
 }
 
-export type Infobox = {
+export type InfoboxType = {
     type: "graph";
     results: InfoboxResult[];
 }
@@ -163,10 +164,10 @@ export type VideoResult = {
     fetched_content_timestamp: number;
     video: VideoMeta;
     meta_url: MetaUrl;
-    thumbnail: Thumbnail;
+    thumbnail: ThumbnailType;
 }
 
-export type Videos = {
+export type VideosType = {
     type: "videos";
     results: VideoResult[];
     mutated_by_goggles: boolean;
@@ -202,7 +203,7 @@ export type WebResult = {
     deep_results?: DeepResults;
     meta_url: MetaUrl;
     age?: string;
-    thumbnail?: Thumbnail;
+    thumbnail?: ThumbnailType;
     extra_snippets?: string[];
 }
 
@@ -219,10 +220,10 @@ export type Web = {
 export type SearchResultItem = {
     type: "search";
     query: SearchQuery;
-    discussions: Discussions;
-    infobox: Infobox;
+    discussions: DiscussionsType;
+    infobox: InfoboxType;
     mixed: Mixed;
-    videos: Videos;
+    videos: VideosType;
     web: Web;
 }
 

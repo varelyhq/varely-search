@@ -1,19 +1,20 @@
-import { SearchResults } from "@/components/SearchResults";
+import { SearchResults } from "@/components/search/results";
 import { View } from "@/components/view"
 
-interface SearchPageProps {
-    searchParams: Promise<{ q?: string; lucky?: string }>
+type SearchPageProps = {
+    searchParams: Promise<{ q?: string; spellcheck?: string; lucky?: string }>
 }
 
 export default async function Page({ searchParams }: SearchPageProps) {
 
-    const { q: query } = await searchParams
+    const params = await searchParams
 
-    if (!query) {
+    if (!params.q) {
         return <div>Wpisz coś, żeby wyszukać.</div>
     }
 
-    const results = await getSearchResults(query)
+    console.log('full_query:', params)
+    const results = await getSearchResults(params)
 
     return (
         <View className="flex-1">
@@ -24,27 +25,27 @@ export default async function Page({ searchParams }: SearchPageProps) {
     )
 }
 
-async function getSearchResults(query: string) {
+async function getSearchResults(params: { [key: string]: string }) {
     const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 5000)
+    const timeout = setTimeout(() => controller.abort(), 10000)
 
     const search_api_url = 'https://n8n.varely.co/webhook/search'; //|| process.env.SEARCH_API_URL;
-    
-    console.log(`${search_api_url}?q=${encodeURIComponent(query)}`)
-    
+
+    const searchParams = new URLSearchParams()
+    Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined) searchParams.set(key, value)
+    })
+
+    const url = `${search_api_url}?${searchParams.toString()}`
+    console.log(url)
+
     try {
-        const res = await fetch(
-            `${search_api_url}?q=${encodeURIComponent(query)}`,
-            {
-                // headers: { Authorization: `Bearer ${process.env.SEARCH_API_KEY}` },
-                cache: 'no-store',
-                signal: controller.signal,
-            }
-        )
+        const res = await fetch(url, { signal: controller.signal })
 
         if (!res.ok) {
             throw new Error(`Search API returned ${res.status}`)
         }
+
         return await res.json()
     } catch (err) {
         if (err instanceof Error && err.name === 'AbortError') {

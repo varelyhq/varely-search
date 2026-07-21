@@ -15,6 +15,7 @@ export default function Page() {
 
     const onSubmit = () => {
         if (!query.trim()) return
+        console.log('Search query:', query)
         const params = new URLSearchParams({ q: query }) // , sort: 'relevance' // router.push(`/search?q=${encodeURIComponent(query)}`)
         router.push(`/search?${params.toString()}`)
     }
