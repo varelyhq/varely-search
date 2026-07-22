@@ -101,6 +101,14 @@ export type InfoboxProvider = {
     img: string;
 }
 
+export type RatingType = {
+  ratingValue: number;
+  bestRating: number;
+  reviewCount: number;
+  profile?: Profile;
+  is_tripadvisor?: boolean;
+}
+
 export type InfoboxResult = {
     title: string;
     url: string;
@@ -115,7 +123,7 @@ export type InfoboxResult = {
     attributes: InfoboxAttribute[];
     profiles: Profile[];
     website_url: string;
-    ratings: unknown[];
+    ratings: RatingType[];
     providers: InfoboxProvider[];
     images: InfoboxImage[];
     subtype: string;

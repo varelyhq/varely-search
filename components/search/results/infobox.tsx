@@ -27,17 +27,19 @@ export function Infobox({ infobox }: { infobox: InfoboxType }) {
                             </View>
                             <p className="text-muted-foreground">{e.description}</p>
 
-                            <Link href={e.website_url} className="mt-1">
-                                <View className="flex-row gap-1 items-center">
-                                    <Globe size={12} className="text-blue-500" />
-                                    <span className="text-blue-500 text-sm">
-                                        {e.website_url}
-                                    </span>
-                                </View>
-                            </Link>
+                            {e.website_url &&
+                                <Link href={e.website_url} className="mt-1">
+                                    <View className="flex-row gap-1 items-center">
+                                        <Globe size={12} className="text-blue-500" />
+                                        <span className="text-blue-500 text-sm">
+                                            {e.website_url}
+                                        </span>
+                                    </View>
+                                </Link>
+                            }
 
                             <View className="my-4 flex-row gap-2 grid grid-cols-2">
-                                {e.images.map((image, image_index) => (
+                                {e.images && e.images.map((image, image_index) => (
                                     <View key={image_index} className="relative aspect-[4/3]">
                                         <Image fill src={image.src} alt={image.alt || ''} className="object-cover rounded-lg" />
                                     </View>
@@ -74,9 +76,9 @@ export function Infobox({ infobox }: { infobox: InfoboxType }) {
                             </View>
 
                             <View>
-                                {e.ratings.map((rating, rating_index) => (
+                                {e.ratings && e.ratings.map((rating, rating_index) => (
                                     <View key={rating_index}>
-                                        {rating}
+                                        {rating.ratingValue}
                                     </View>
                                 ))}
                             </View>
@@ -84,7 +86,7 @@ export function Infobox({ infobox }: { infobox: InfoboxType }) {
                             <Separator className='my-5' />
 
                             <View className="flex-row flex-wrap gap-2">
-                                {e.profiles.map((profile, profile_index) => (
+                                {e.profiles && e.profiles.map((profile, profile_index) => (
                                     <Link key={profile_index} href={profile.url} title={profile.name}>
                                         <View className="flex-row gap-2 p-1 border border-border rounded-lg">
                                             <Image src={profile.img} alt={profile.name} width={16} height={16} className="rounded" />
@@ -98,7 +100,7 @@ export function Infobox({ infobox }: { infobox: InfoboxType }) {
                     <View className="mt-4 px-5">
                         <span className="text-xs">Źródła</span>
                         <View className="flex-row gap-2">
-                            {e.providers.map((provider, provider_index) => (
+                            {e.providers && e.providers.map((provider, provider_index) => (
                                 <View key={provider_index} className="flex-row gap-2 items-center">
                                     <Image src={provider.img} alt={provider.name} width={16} height={16} className="rounded-lg" />
                                     <span className="text-xs text-muted-foreground">{provider.name}</span>
