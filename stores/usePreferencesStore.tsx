@@ -1,12 +1,12 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
-type Language = 'pl' | 'en' | 'de' | 'fr'
-type Region = 'PL' | 'US' | 'DE' | 'GB'
-type SafeSearch = 'off' | 'moderate' | 'strict'
-type Theme = 'light' | 'dark' | 'system'
+export type Language = 'pl' | 'en' | 'de' | 'fr'
+export type Region = 'PL' | 'US' | 'DE' | 'GB'
+export type SafeSearch = 'off' | 'moderate' | 'strict'
+export type Theme = 'light' | 'dark' | 'system'
 
-interface PreferencesState {
+type PreferencesState = {
   language: Language
   region: Region
   safeSearch: SafeSearch
@@ -43,10 +43,9 @@ export const usePreferencesStore = create<PreferencesState>()(
       reset: () => set(defaults),
     }),
     {
-      name: 'varely-preferences',        // klucz w localStorage
+      name: 'varely-preferences',
       storage: createJSONStorage(() => localStorage),
 
-      // opcjonalnie: zapisuj tylko wybrane pola (np. pomiń theme jeśli nie chcesz)
       partialize: (state) => ({
         language: state.language,
         region: state.region,
