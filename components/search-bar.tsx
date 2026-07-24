@@ -6,30 +6,31 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { View } from "./view";
 import { useRef, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Autosuggest, AutosuggestWrapper } from "./search/autosuggest";
+import { useSearchQueryStore } from "@/stores/useSearchQueryStore";
 
 export function SearchBar() {
 
     const router = useRouter()
     const pathname = usePathname()
-    const searchParams = useSearchParams()
 
-    const [query, setQuery] = useState(searchParams.get("q") ?? "")
+    const query = useSearchQueryStore(s => s.query)
+    const setQuery = useSearchQueryStore(s => s.setQuery)
+    const buildParams = useSearchQueryStore(s => s.buildParams)
+
     const [isFocused, setIsFocused] = useState(false)
 
     const inputRef = useRef<any>(undefined);
 
-    const push = (final_query: string) => {
-        const params = new URLSearchParams(searchParams.toString())
-        params.set("q", final_query)
-        router.push(`${pathname}?${params.toString()}`)
+    const handleSearch = () => {
+        if (!query) return
+        const params = buildParams()
+        router.push(`/search?${params}`)
         inputRef.current?.blur();
     }
 
-    const handleSearch = () => {
-        if (query) push(query)
-    }
+    if (pathname !== '/search') return null
 
     return (
         <View className="flex-row justify-start items-center gap-4">
@@ -51,7 +52,7 @@ export function SearchBar() {
                         className="absolute top-full mt-4"
                         query={query}
                         visible={isFocused}
-                        onSelect={v => { push(v); setQuery(v); }}
+                        onSelect={v => {  setQuery(v); handleSearch(); }}
                     />
                 </AutosuggestWrapper>
             </View>

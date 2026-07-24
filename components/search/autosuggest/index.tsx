@@ -24,8 +24,6 @@ export function Autosuggest({ query, visible, className = '', onSelect = () => {
     const [results, setResults] = useState<{ query: string }[]>([])
     const [loading, setLoading] = useState(false)
 
-    console.log(loading)
-
     const timeoutRef = useRef<any>(0)
 
     const fetchNewSuggestions = async (params: { [key: string]: string }) => {
@@ -69,7 +67,7 @@ export function Autosuggest({ query, visible, className = '', onSelect = () => {
         if (query) {
             timeoutRef.current = setTimeout(() => {
                 fetchNewSuggestions({ q: query })
-            }, 1000);
+            }, 250);
         }
         else {
             setResults([]);
@@ -81,13 +79,13 @@ export function Autosuggest({ query, visible, className = '', onSelect = () => {
 
     }, [query]);
 
-    const hidden = !results.length || !visible
+    const hidden = !visible || (!query && (!results.length || !visible))
 
     return (
         <View className={`w-full ${hidden && 'hidden'} ${className}`}>
             <Command className="rounded-lg border relative">
                 <CommandList className="max-h-96">
-                    <CommandEmpty>No results found.</CommandEmpty>
+                    <CommandEmpty>Loading...</CommandEmpty>
                     <CommandGroup>
                         {results.map((suggestion, index) => (
                             <CommandItem

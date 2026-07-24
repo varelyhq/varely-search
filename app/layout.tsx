@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
 import { View } from "@/components/view";
 import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/navbar";
+import { usePreferencesStore } from "@/stores/usePreferencesStore";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -18,6 +20,7 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode
 }>) {
+
     return (
         <html
             lang="en"
@@ -29,7 +32,7 @@ export default function RootLayout({
                     <View className={'min-h-screen bg-background'
                         // + ' bg-blue-50 bg-[radial-gradient(#bedbff_1.5px,transparent_1.5px)] [background-size:24px_24px]'
                     }>
-                        {/* <Navbar /> */}
+                        <Navbar />
                         {children}
                         <Footer />
                     </View>

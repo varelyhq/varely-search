@@ -1,24 +1,23 @@
+import { countries, search_lang } from '@/constants/languages'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
-type Language = 'pl' | 'en' | 'de' | 'fr'
-type Region = 'PL' | 'US' | 'DE' | 'GB'
-type SafeSearch = 'off' | 'moderate' | 'strict'
-type Theme = 'light' | 'dark' | 'system'
+export type Language = typeof search_lang[number] | 'default'
+export type Region = typeof countries[number]
+export type SafeSearch = 'off' | 'moderate' | 'strict'
+export type Theme = 'light' | 'dark' | 'system'
 
-interface PreferencesState {
+type PreferencesState = {
   language: Language
   region: Region
   safeSearch: SafeSearch
   theme: Theme
-  resultsPerPage: number
 
   // actions
   setLanguage: (lang: Language) => void
   setRegion: (region: Region) => void
   setSafeSearch: (level: SafeSearch) => void
   setTheme: (theme: Theme) => void
-  setResultsPerPage: (count: number) => void
   reset: () => void
 }
 
@@ -27,7 +26,6 @@ const defaults = {
   region: 'PL' as Region,
   safeSearch: 'moderate' as SafeSearch,
   theme: 'system' as Theme,
-  resultsPerPage: 10,
 }
 
 export const usePreferencesStore = create<PreferencesState>()(
@@ -39,20 +37,17 @@ export const usePreferencesStore = create<PreferencesState>()(
       setRegion: (region) => set({ region }),
       setSafeSearch: (safeSearch) => set({ safeSearch }),
       setTheme: (theme) => set({ theme }),
-      setResultsPerPage: (resultsPerPage) => set({ resultsPerPage }),
       reset: () => set(defaults),
     }),
     {
-      name: 'varely-preferences',        // klucz w localStorage
+      name: 'varely-preferences',
       storage: createJSONStorage(() => localStorage),
 
-      // opcjonalnie: zapisuj tylko wybrane pola (np. pomiń theme jeśli nie chcesz)
       partialize: (state) => ({
         language: state.language,
         region: state.region,
         safeSearch: state.safeSearch,
         theme: state.theme,
-        resultsPerPage: state.resultsPerPage,
       }),
     }
   )
