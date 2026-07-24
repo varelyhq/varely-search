@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { View } from "@/components/view";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
+import { usePreferencesStore } from "@/stores/usePreferencesStore";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -19,6 +20,7 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode
 }>) {
+
     return (
         <html
             lang="en"

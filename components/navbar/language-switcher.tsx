@@ -2,29 +2,35 @@ import { continents, country_translations } from "@/constants/languages";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 import { View } from "../view";
 import React from "react";
+import { usePreferencesStore } from "@/stores/usePreferencesStore";
 
 
 export function LanguageSwitcher() {
 
+    const region = usePreferencesStore(store => store.region);
+    const setRegion = usePreferencesStore(store => store.setRegion);
 
+    const onValueChange = (value: any) => {
+        if(value) setRegion(value)
+    }
 
     return (
-        <Select value='PL'>
+        <Select value={region} onValueChange={onValueChange}>
 
             <SelectTrigger>
-                <SelectValue placeholder="Language">
+                <SelectValue placeholder="Region">
                     <img
-                        src={`https://flagcdn.com/${'pl'}.svg`}
-                        alt={'PL'}
-                        className="h-3.5 w-auto rounded"
+                        src={`https://flagcdn.com/${region.toLowerCase()}.svg`}
+                        alt={region}
+                        className="h-5 w-5 rounded-full object-cover"
                     />
-                    {country_translations['PL']}
+                    {country_translations[region]}
                 </SelectValue>
             </SelectTrigger>
 
             <SelectContent className="w-64 max-h-128">
                 <SelectGroup>
-                    <SelectLabel className='sticky top-0 bg-white z-100'>Wybierz język wyszukiwania</SelectLabel>
+                    <SelectLabel className='sticky top-0 bg-popover z-100'>Wybierz język wyszukiwania</SelectLabel>
 
                     {continents.map(continent => (
                         <React.Fragment key={continent.id}>

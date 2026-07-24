@@ -26,6 +26,7 @@ export const search_lang = [
     'hu',
     'is',
     'it',
+
     'ja',
     'jp',
     'kn',
@@ -53,7 +54,50 @@ export const search_lang = [
     'tr',
     'uk',
     'vi',
-]
+] as const
+
+// User interface language preferred in response. Usually of the format <language_code>-<country_code>. For more, see RFC 9110.
+export const ui_lang = [
+    'es-AR',
+    'en-AU',
+    'de-AT',
+    'nl-BE',
+    'fr-BE',
+    'pt-BR',
+    'en-CA',
+    'fr-CA',
+    'es-CL',
+    'da-DK',
+    'fi-FI',
+    'fr-FR',
+    'de-DE',
+    'el-GR',
+    'zh-HK',
+    'en-IN',
+    'en-ID',
+    'it-IT',
+    'ja-JP',
+    'ko-KR',
+    'en-MY',
+    'es-MX',
+    'nl-NL',
+    'en-NZ',
+    'no-NO',
+    'zh-CN',
+    'pl-PL',
+    'en-PH',
+    'ru-RU',
+    'en-ZA',
+    'es-ES',
+    'sv-SE',
+    'fr-CH',
+    'de-CH',
+    'zh-TW',
+    'tr-TR',
+    'en-GB',
+    'en-US',
+    'es-US',
+] as const
 
 // The 2 character country code where the search results come from.
 export const countries_europe = [
@@ -111,14 +155,14 @@ export const countries_africa = [
     'ZA',
 ]
 
-export const country = [
+export const countries = [
     ...countries_europe,
     ...countries_asia,
     ...countries_north_america,
     ...countries_south_america,
     ...countries_oceania,
     ...countries_africa
-]
+] as const
 
 export const continents = [
     {
@@ -151,49 +195,6 @@ export const continents = [
         label: 'Oceania',
         countries: countries_oceania
     },
-]
-
-// User interface language preferred in response. Usually of the format <language_code>-<country_code>. For more, see RFC 9110.
-export const ui_lang = [
-    'es-AR',
-    'en-AU',
-    'de-AT',
-    'nl-BE',
-    'fr-BE',
-    'pt-BR',
-    'en-CA',
-    'fr-CA',
-    'es-CL',
-    'da-DK',
-    'fi-FI',
-    'fr-FR',
-    'de-DE',
-    'el-GR',
-    'zh-HK',
-    'en-IN',
-    'en-ID',
-    'it-IT',
-    'ja-JP',
-    'ko-KR',
-    'en-MY',
-    'es-MX',
-    'nl-NL',
-    'en-NZ',
-    'no-NO',
-    'zh-CN',
-    'pl-PL',
-    'en-PH',
-    'ru-RU',
-    'en-ZA',
-    'es-ES',
-    'sv-SE',
-    'fr-CH',
-    'de-CH',
-    'zh-TW',
-    'tr-TR',
-    'en-GB',
-    'en-US',
-    'es-US',
 ]
 
 export const country_translations: Record<string, string> = {
@@ -234,5 +235,100 @@ export const country_translations: Record<string, string> = {
     'TR': 'Turkey',
     'GB': 'United Kingdom',
     'US': 'United States',
-    // 'ALL': 'All',
 }
+
+
+export const language_to_user_interface_language: Record<string, string | null> = {
+    ar: null,
+    eu: null,
+    bn: null,
+    bg: null,
+    ca: null,
+    'zh-hans': 'zh-CN',
+    'zh-hant': 'zh-TW',
+    hr: null,
+    cs: null,
+    da: 'da-DK',
+    nl: 'nl-NL',
+    en: 'en-US',
+    'en-gb': 'en-GB',
+    et: null,
+    fi: 'fi-FI',
+    fr: 'fr-FR',
+    gl: null,
+    de: 'de-DE',
+    el: 'el-GR',
+    gu: null,
+    he: null,
+    hi: null,
+    hu: null,
+    is: null,
+    it: 'it-IT',
+    ja: 'ja-JP',
+    jp: 'ja-JP',
+    kn: null,
+    ko: 'ko-KR',
+    lv: null,
+    lt: null,
+    ms: null,
+    ml: null,
+    mr: null,
+    nb: 'no-NO',
+    pl: 'pl-PL',
+    'pt-br': 'pt-BR',
+    'pt-pt': null,
+    pa: null,
+    ro: null,
+    ru: 'ru-RU',
+    sr: null,
+    sk: null,
+    sl: null,
+    es: 'es-ES',
+    sv: 'sv-SE',
+    ta: null,
+    te: null,
+    th: null,
+    tr: 'tr-TR',
+    uk: null,
+    vi: null,
+} as const
+
+export const country_to_search_lang: Record<string, string | null> = {
+    AR: 'es',        // Argentyna - hiszpański
+    AU: 'en',        // Australia - angielski
+    AT: 'de',        // Austria - niemiecki
+    BE: 'nl',        // Belgia - WIELOJĘZYCZNA (nl + fr oficjalne), wybrano nl; alternatywnie 'fr'
+    BR: 'pt-br',      // Brazylia - portugalski (Brazylia)
+    CA: 'en',        // Kanada - WIELOJĘZYCZNA (en + fr oficjalne), wybrano en; alternatywnie 'fr'
+    CL: 'es',        // Chile - hiszpański
+    DK: 'da',        // Dania - duński
+    FI: 'fi',        // Finlandia - fiński
+    FR: 'fr',        // Francja - francuski
+    DE: 'de',        // Niemcy - niemiecki
+    GR: 'el',        // Grecja - grecki
+    HK: 'zh-hant',    // Hong Kong - chiński tradycyjny (brak dedykowanego kodu HK)
+    IN: 'hi',        // Indie - WIELOJĘZYCZNE, wybrano hindi; alternatywnie 'en' (też oficjalny)
+    ID: null,        // Indonezja - BRAK odpowiednika (indonezyjski nie występuje w search_lang)
+    IT: 'it',        // Włochy - włoski
+    JP: 'ja',        // Japonia - japoński (w search_lang jest też duplikat 'jp')
+    KR: 'ko',        // Korea Południowa - koreański
+    MY: 'ms',        // Malezja - malajski
+    MX: 'es',        // Meksyk - hiszpański
+    NL: 'nl',        // Holandia - niderlandzki
+    NZ: 'en',        // Nowa Zelandia - angielski
+    NO: 'nb',        // Norwegia - norweski (search_lang ma tylko wariant 'nb' - Bokmål)
+    CN: 'zh-hans',    // Chiny - chiński uproszczony
+    PL: 'pl',        // Polska - polski
+    PT: 'pt-pt',      // Portugalia - portugalski (Portugalia)
+    PH: null,        // Filipiny - BRAK odpowiednika (filipino/tagalog nie występuje w search_lang)
+    RU: 'ru',        // Rosja - rosyjski
+    SA: 'ar',        // Arabia Saudyjska - arabski
+    ZA: null,        // RPA - BRAK jednoznacznego odpowiednika (wiele języków urzędowych, 'en' to za mało precyzyjne)
+    ES: 'es',        // Hiszpania - hiszpański (uwaga: w search_lang są też 'ca' i 'gl' - regionalne)
+    SE: 'sv',        // Szwecja - szwedzki
+    CH: 'de',        // Szwajcaria - WIELOJĘZYCZNA (de + fr + it oficjalne), wybrano de; alternatywnie 'fr'/'it'
+    TW: 'zh-hant',    // Tajwan - chiński tradycyjny
+    TR: 'tr',        // Turcja - turecki
+    GB: 'en-gb',      // Wielka Brytania - angielski (UK)
+    US: 'en',        // Stany Zjednoczone - angielski
+} as const

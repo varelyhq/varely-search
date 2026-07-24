@@ -1,8 +1,9 @@
+import { countries, search_lang } from '@/constants/languages'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
-export type Language = 'pl' | 'en' | 'de' | 'fr'
-export type Region = 'PL' | 'US' | 'DE' | 'GB'
+export type Language = typeof search_lang[number] | 'default'
+export type Region = typeof countries[number]
 export type SafeSearch = 'off' | 'moderate' | 'strict'
 export type Theme = 'light' | 'dark' | 'system'
 
@@ -11,14 +12,12 @@ type PreferencesState = {
   region: Region
   safeSearch: SafeSearch
   theme: Theme
-  resultsPerPage: number
 
   // actions
   setLanguage: (lang: Language) => void
   setRegion: (region: Region) => void
   setSafeSearch: (level: SafeSearch) => void
   setTheme: (theme: Theme) => void
-  setResultsPerPage: (count: number) => void
   reset: () => void
 }
 
@@ -27,7 +26,6 @@ const defaults = {
   region: 'PL' as Region,
   safeSearch: 'moderate' as SafeSearch,
   theme: 'system' as Theme,
-  resultsPerPage: 10,
 }
 
 export const usePreferencesStore = create<PreferencesState>()(
@@ -39,7 +37,6 @@ export const usePreferencesStore = create<PreferencesState>()(
       setRegion: (region) => set({ region }),
       setSafeSearch: (safeSearch) => set({ safeSearch }),
       setTheme: (theme) => set({ theme }),
-      setResultsPerPage: (resultsPerPage) => set({ resultsPerPage }),
       reset: () => set(defaults),
     }),
     {
@@ -51,7 +48,6 @@ export const usePreferencesStore = create<PreferencesState>()(
         region: state.region,
         safeSearch: state.safeSearch,
         theme: state.theme,
-        resultsPerPage: state.resultsPerPage,
       }),
     }
   )
