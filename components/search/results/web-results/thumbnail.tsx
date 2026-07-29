@@ -8,7 +8,7 @@ export function Thumbnail({ thumbnail }: { thumbnail: ThumbnailType }) {
 
     const [error, setError] = useState<any>(undefined);
 
-    if (error) return null;
+    if (!thumbnail || error) return null;
 
     return (
         <Image
@@ -17,7 +17,7 @@ export function Thumbnail({ thumbnail }: { thumbnail: ThumbnailType }) {
             height={96}
             src={thumbnail.src}
             alt={thumbnail.alt || ''}
-            className="rounded-lg object-cover"
+            className="rounded-lg object-cover w-24 h-24"
             onError={e => setError(e)}
         />
     )
