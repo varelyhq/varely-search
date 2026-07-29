@@ -7,6 +7,7 @@ import { View } from "@/components/view";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { usePreferencesStore } from "@/stores/usePreferencesStore";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -29,13 +30,15 @@ export default function RootLayout({
         >
             <body className="min-h-screen bg-background">
                 <ThemeProvider>
-                    <View className={'min-h-screen bg-background'
-                        // + ' bg-blue-50 bg-[radial-gradient(#bedbff_1.5px,transparent_1.5px)] [background-size:24px_24px]'
-                    }>
-                        <Navbar />
-                        {children}
-                        <Footer />
-                    </View>
+                    <TooltipProvider>
+                        <View className={'min-h-screen bg-background'
+                            // + ' bg-blue-50 bg-[radial-gradient(#bedbff_1.5px,transparent_1.5px)] [background-size:24px_24px]'
+                        }>
+                            <Navbar />
+                            {children}
+                            <Footer />
+                        </View>
+                    </TooltipProvider>
                 </ThemeProvider>
             </body>
         </html >
