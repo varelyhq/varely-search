@@ -8,6 +8,8 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { usePreferencesStore } from "@/stores/usePreferencesStore";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Suspense } from "react";
+import { SearchInitializer } from "@/components/search/search-init";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -29,6 +31,9 @@ export default function RootLayout({
             className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
         >
             <body className="min-h-screen bg-background">
+                <Suspense fallback={null}>
+                    <SearchInitializer />
+                </Suspense>
                 <ThemeProvider>
                     <TooltipProvider>
                         <View className={'min-h-screen bg-background'
