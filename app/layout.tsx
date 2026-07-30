@@ -10,6 +10,7 @@ import { usePreferencesStore } from "@/stores/usePreferencesStore";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Suspense } from "react";
 import { SearchInitializer } from "@/components/search/search-init";
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -31,6 +32,7 @@ export default function RootLayout({
             className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
         >
             <body className="min-h-screen bg-background">
+                <NextTopLoader color="#000000" height={3} showSpinner={false} />
                 <Suspense fallback={null}>
                     <SearchInitializer />
                 </Suspense>

@@ -1,9 +1,11 @@
 import { BottomNav } from "@/components/bottom-nav";
+import { LoadingLayout } from "@/components/loading-layout";
 import { SearchResults } from "@/components/search/results";
 import { View } from "@/components/view"
+import { getSearch } from "@/lib/api-search";
 
 type SearchPageProps = {
-    searchParams: Promise<{ q?: string; spellcheck?: string; lucky?: string }>
+    searchParams: Promise<{ q?: string }>
 }
 
 export default async function Page({ searchParams }: SearchPageProps) {
@@ -14,45 +16,24 @@ export default async function Page({ searchParams }: SearchPageProps) {
         return <div>Wpisz coś, żeby wyszukać.</div>
     }
 
-    console.log('full_query:', params)
-    const results = await getSearchResults(params)
+    const readyParams = new URLSearchParams()
+    Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined) readyParams.set(key, value)
+    })
+
+    const { data: results, error } = await getSearch(readyParams.toString())
+
+    if (error || !results) return (
+        <View className="flex-1">
+            Wystąpił błąd
+        </View>
+    )
 
     return (
         <View className="flex-1">
+            <LoadingLayout />
             <SearchResults results={results} />
             <BottomNav />
         </View>
     )
-}
-
-async function getSearchResults(params: { [key: string]: string }) {
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 10000)
-
-    const search_api_url = 'https://n8n.varely.co/webhook/search'; //|| process.env.SEARCH_API_URL;
-
-    const searchParams = new URLSearchParams()
-    Object.entries(params).forEach(([key, value]) => {
-        if (value !== undefined) searchParams.set(key, value)
-    })
-
-    const url = `${search_api_url}?${searchParams.toString()}`
-    console.log(url)
-
-    try {
-        const res = await fetch(url, { signal: controller.signal })
-
-        if (!res.ok) {
-            throw new Error(`Search API returned ${res.status}`)
-        }
-
-        return await res.json()
-    } catch (err) {
-        if (err instanceof Error && err.name === 'AbortError') {
-            throw new Error('Search request timed out')
-        }
-        throw err
-    } finally {
-        clearTimeout(timeout)
-    }
 }

@@ -1,18 +1,21 @@
 'use client'
 
-import { useSearchQueryStore } from "@/stores/useSearchQueryStore";
+import { useSearchStore } from "@/stores/useSearchStore";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../ui/pagination";
 import { View } from "../view";
+import { useRouter } from "next/navigation";
 
 export function BottomNav() {
 
-    const offset = useSearchQueryStore(s => s.offset)
-    const setOffset = useSearchQueryStore(s => s.setOffset)
+    const router = useRouter()
+
+    const offset = useSearchStore(s => s.offset)
+    const setOffset = useSearchStore(s => s.setOffset)
 
     const items = [...Array(10).keys()]
 
-    const prevPage = offset !== 0 ? () => setOffset(offset - 1) : () => { }
-    const nextPage = offset !== 9 ? () => setOffset(offset + 1) : () => { }
+    const prevPage = offset !== 0 ? () => setOffset(offset - 1, router) : () => { }
+    const nextPage = offset !== 9 ? () => setOffset(offset + 1, router) : () => { }
 
     return (
         <View className="mt-8">
@@ -26,7 +29,7 @@ export function BottomNav() {
                         <PaginationItem key={item}>
                             <PaginationLink
                                 isActive={item === offset}
-                                onClick={() => setOffset(item)}
+                                onClick={() => setOffset(item, router)}
                             >
                                 {item + 1}
                             </PaginationLink>

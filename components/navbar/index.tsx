@@ -10,7 +10,7 @@ import { Suspense, useState } from "react"
 import { SearchBar } from "../search-bar"
 import { usePathname } from "next/navigation"
 import { ThemeSwitcher } from "./theme-switcher"
-import { useSearchQueryStore } from "@/stores/useSearchQueryStore"
+import { useSearchStore } from "@/stores/useSearchStore"
 import { Separator } from "../ui/separator"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
@@ -54,7 +54,7 @@ export function Navbar() {
 function NavTabs() {
 
     const pathname = usePathname()
-    const buildParams = useSearchQueryStore(s => s.buildParams)
+    const buildParams = useSearchStore(s => s.buildParams)
 
     const [settingsVisible, setSettingsVisible] = useState(false)
 

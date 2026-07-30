@@ -5,7 +5,7 @@ import { Autosuggest } from "@/components/search/autosuggest"
 import { Button } from "@/components/ui/button"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 import { View } from "@/components/view"
-import { useSearchQueryStore } from "@/stores/useSearchQueryStore"
+import { useSearchStore } from "@/stores/useSearchStore"
 import { SearchIcon } from "lucide-react"
 import { useRouter } from 'next/navigation'
 import { useState } from "react"
@@ -14,16 +14,15 @@ function SearchBar() {
 
     const router = useRouter()
 
-    const query = useSearchQueryStore(s => s.query)
-    const setQuery = useSearchQueryStore(s => s.setQuery)
-    const buildParams = useSearchQueryStore(s => s.buildParams)
+    const query = useSearchStore(s => s.query)
+    const setQuery = useSearchStore(s => s.setQuery)
+    const getSearchResults = useSearchStore(s => s.getSearchResults)
 
     const [isFocused, setIsFocused] = useState(false)
 
     const onSubmit = () => {
         if (!query.trim()) return
-        const params = buildParams()
-        router.push(`/search?${params}`)
+        getSearchResults(router)
     }
 
     return (
