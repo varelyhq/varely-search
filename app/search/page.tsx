@@ -1,3 +1,4 @@
+import { BottomNav } from "@/components/bottom-nav";
 import { SearchResults } from "@/components/search/results";
 import { View } from "@/components/view"
 
@@ -18,9 +19,8 @@ export default async function Page({ searchParams }: SearchPageProps) {
 
     return (
         <View className="flex-1">
-
             <SearchResults results={results} />
-
+            <BottomNav />
         </View>
     )
 }
