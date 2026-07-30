@@ -2,12 +2,12 @@
 
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { useSearchQueryStore } from '@/stores/useSearchQueryStore'
+import { useSearchStore } from '@/stores/useSearchStore'
 
 export function SearchInitializer() {
 
     const searchParams = useSearchParams()
-    const setQuery = useSearchQueryStore(s => s.setQuery)
+    const setQuery = useSearchStore(s => s.setQuery)
 
     useEffect(() => {
         const q = searchParams.get('q')

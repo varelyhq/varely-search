@@ -8,7 +8,7 @@ import { View } from "./view";
 import { useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Autosuggest, AutosuggestWrapper } from "./search/autosuggest";
-import { useSearchQueryStore } from "@/stores/useSearchQueryStore";
+import { useSearchStore } from "@/stores/useSearchStore";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
 import { Separator } from "./ui/separator";
 
@@ -17,9 +17,9 @@ export function SearchBar() {
     const router = useRouter()
     const pathname = usePathname()
 
-    const query = useSearchQueryStore(s => s.query)
-    const setQuery = useSearchQueryStore(s => s.setQuery)
-    const buildParams = useSearchQueryStore(s => s.buildParams)
+    const query = useSearchStore(s => s.query)
+    const setQuery = useSearchStore(s => s.setQuery)
+    const buildParams = useSearchStore(s => s.buildParams)
 
     const [isFocused, setIsFocused] = useState(false)
 

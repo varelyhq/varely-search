@@ -1,13 +1,13 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { useSearchQueryStore } from "@/stores/useSearchQueryStore"
+import { useSearchStore } from "@/stores/useSearchStore"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 export function SeeMoreVideosButton() {
 
-    const buildParams = useSearchQueryStore(s => s.buildParams)
+    const buildParams = useSearchStore(s => s.buildParams)
 
     return (
         <Link href={`/videos?${buildParams()}`} className='ml-auto'>
