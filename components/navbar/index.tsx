@@ -21,8 +21,8 @@ export function Navbar() {
     const pathname = usePathname()
 
     return (
-        <View>
-            <View className="flex-row p-3 gap-2">
+        <>
+            <View className="flex-row p-3 gap-2 sticky top-0 z-40 bg-background">
 
                 {pathname === '/' &&
                     <Link href='https://github.com/varelyhq/varely-search/' target='_blank'>
@@ -47,7 +47,7 @@ export function Navbar() {
 
             {pathname !== '/' && <NavTabs />}
 
-        </View>
+        </>
     )
 }
 
