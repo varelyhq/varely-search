@@ -4,18 +4,22 @@ import { country_to_search_lang, language_to_user_interface_language } from "@/c
 
 type SearchQueryState = {
     query: string,
+    offset: number,
     setQuery: (query: string) => void
+    setOffset: (offset: number) => void
     buildParams: () => void
 }
 
 const defaults = {
-    query: '' as string
+    query: '',
+    offset: 0
 }
 
 export const useSearchQueryStore = create<SearchQueryState>()(
     (set, get) => ({
         ...defaults,
         setQuery: query => set({ query }),
+        setOffset: offset => set({ offset }),
         buildParams: () => {
             const region = usePreferencesStore.getState().region;
             const stored_language = usePreferencesStore.getState().language
@@ -25,6 +29,7 @@ export const useSearchQueryStore = create<SearchQueryState>()(
 
             return new URLSearchParams({
                 q: get().query,
+                offset: get().offset.toString(),
                 country: region,
                 search_language: language,
                 user_interface_language: user_interface_language
