@@ -15,7 +15,7 @@ const defaults = {
 export const useSearchQueryStore = create<SearchQueryState>()(
     (set, get) => ({
         ...defaults,
-        setQuery: (query) => set({ query }),
+        setQuery: query => set({ query }),
         buildParams: () => {
             const region = usePreferencesStore.getState().region;
             const stored_language = usePreferencesStore.getState().language
