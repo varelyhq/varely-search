@@ -28,7 +28,7 @@ export function LanguageSwitcher() {
                 </SelectValue>
             </SelectTrigger>
 
-            <SelectContent className="w-64 max-h-128">
+            <SelectContent alignItemWithTrigger={false} className="w-64 max-h-128">
                 <SelectGroup>
                     <SelectLabel className='sticky top-0 bg-popover z-100'>Wybierz język wyszukiwania</SelectLabel>
 

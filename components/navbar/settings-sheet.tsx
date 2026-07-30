@@ -32,7 +32,7 @@ function SafeSearchSelect() {
                         {translations[safeSearch]}
                     </SelectValue>
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent alignItemWithTrigger={false}>
                     <SelectGroup>
                         <SelectItem value='strict'>
                             Ściśle
@@ -71,7 +71,7 @@ function SearchResultsLanguage() {
                         {language === 'default' ? 'Domyślnie' : language}
                     </SelectValue>
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent alignItemWithTrigger={false}>
                     <SelectGroup>
                         <SelectItem value='default'>
                             Domyślnie

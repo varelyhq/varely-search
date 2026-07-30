@@ -1,6 +1,6 @@
 'use client'
 
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { Logo } from "./logo";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -9,6 +9,8 @@ import { useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Autosuggest, AutosuggestWrapper } from "./search/autosuggest";
 import { useSearchQueryStore } from "@/stores/useSearchQueryStore";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
+import { Separator } from "./ui/separator";
 
 export function SearchBar() {
 
@@ -30,15 +32,51 @@ export function SearchBar() {
         inputRef.current?.blur();
     }
 
-    if (pathname !== '/search') return null
+    const clearQuery = () => {
+        setQuery('')
+        inputRef.current?.focus();
+    }
+
+    if (pathname === '/') return null
 
     return (
         <View className="flex-row justify-start items-center gap-4">
-            <Logo size='sm' />
-            <View>
+
+            <View className="w-32">
+                <Logo size='sm' />
+            </View>
+
+            <View className="w-xl">
                 <AutosuggestWrapper>
-                    <Input
-                        className='min-w-70'
+                    <InputGroup className="max-w-xl w-xl h-12">
+                        <InputGroupInput
+                            placeholder="Wyszukaj coś..."
+                            value={query}
+                            ref={inputRef}
+                            onChange={e => setQuery(e.target.value)}
+                            onFocus={() => setIsFocused(true)}
+                            onBlur={() => setIsFocused(false)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") handleSearch()
+                            }}
+                        />
+                        <InputGroupAddon>
+                            <Search />
+                        </InputGroupAddon>
+                        <InputGroupAddon align="inline-end">
+                            <Button onClick={clearQuery} size='icon' variant='ghost'>
+                                <X />
+                            </Button>
+                            <Separator orientation='vertical' className='h-6 my-auto' />
+                            <Button onClick={handleSearch} variant='ghost'>
+                                Szukaj
+                                <Search />
+                            </Button>
+                        </InputGroupAddon>
+                    </InputGroup>
+                    {/* <Input
+                        // className='min-w-70'
+                        className='min-w-140 h-12'
                         value={query}
                         ref={inputRef}
                         onChange={e => setQuery(e.target.value)}
@@ -47,19 +85,19 @@ export function SearchBar() {
                         onKeyDown={(e) => {
                             if (e.key === "Enter") handleSearch()
                         }}
-                    />
+                    /> */}
                     <Autosuggest
                         className="absolute top-full mt-4"
                         query={query}
                         visible={isFocused}
-                        onSelect={v => {  setQuery(v); handleSearch(); }}
+                        onSelect={v => { setQuery(v); handleSearch(); }}
                     />
                 </AutosuggestWrapper>
             </View>
-            <Button onClick={handleSearch}>
+            {/* <Button onClick={handleSearch}>
                 Szukaj
                 <Search />
-            </Button>
+            </Button> */}
         </View>
     )
 }
