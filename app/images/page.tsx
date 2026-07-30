@@ -23,7 +23,7 @@ function MasonryGallery({ results }: { results: ImageSearchResponseType }) {
             {columns.map((col, colIndex) => (
                 <View key={colIndex} className="flex-1 gap-4 min-w-0">
                     {col.map((image, index) => (
-                        <View key={index} className="relative block group min-w-0">
+                        <View key={index} className="xrelative block group min-w-0">
                             <Link href={image.url}>
                                 <Image
                                     src={image.thumbnail.src}
