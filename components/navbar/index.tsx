@@ -61,7 +61,7 @@ function NavTabs() {
     return (
         <View className="gap-3">
             <View className="flex-row gap-1 ml-44">
-                <NavTab active={pathname === '/ask'} href={"/ask?" + buildParams()}>Zapytaj</NavTab>
+                <NavTab active={pathname === '/ask'} href={"/ask?" + buildParams()}>Zapytaj AI</NavTab>
                 <NavTab active={pathname === '/search'} href={"/search?" + buildParams()}>Wszystko</NavTab>
                 <NavTab active={pathname === '/images'} href={"/images?" + buildParams()}>Grafika</NavTab>
                 <NavTab active={pathname === '/news'} href={"/news?" + buildParams()}>Wiadomości</NavTab>
