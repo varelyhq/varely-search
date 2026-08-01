@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SeeMoreVideosButton } from "./see-more-button";
 
-export function WebResultVideo({ data }: { data: SearchResult }) {
+function WebResultVideo({ data }: { data: SearchResult }) {
     return (
         <View>
 

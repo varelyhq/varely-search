@@ -79,7 +79,7 @@ function Movie({ movie }: { movie: MovieType }) {
     )
 }
 
-function WebResultVideo({ data }: { data: SearchResult }) {
+export function WebResultVideo({ data }: { data: SearchResult }) {
     return (
         <View className="flex-row gap-2 justify-between">
             <View className="gap-2">
@@ -89,7 +89,9 @@ function WebResultVideo({ data }: { data: SearchResult }) {
                         <View className="flex-row gap-2 items-center">
                             <img src={data.meta_url.favicon} className="w-5 h-5 rounded" />
                             <View className="">
-                                <span className="text-sm">{data.profile.name}</span>
+                                <span className="text-sm">
+                                    {data?.profile?.name || data?.video?.publisher || data?.meta_url?.netloc}
+                                </span>
                                 <span className="text-xs text-muted-foreground line-clamp-1">
                                     {data.meta_url.netloc}{' '}
                                     {data.meta_url.path}
@@ -106,13 +108,13 @@ function WebResultVideo({ data }: { data: SearchResult }) {
                     <Link href={data.url} className="flex-1/4">
                         <View className="relative aspect-video h-full">
                             <Image
-                                src={data.video.thumbnail.src}
-                                alt={data.video.thumbnail.alt || ''}
+                                src={data.video.thumbnail?.src || data.thumbnail.src}
+                                alt={data.video.thumbnail?.alt || data.thumbnail.alt}
                                 className="rounded-lg object-cover h-full"
                                 fill
                             />
                             <span className="bg-white/50 text-xs absolute bottom-1 right-1 rounded-full py-0.5 px-1">
-                                {data.video.duration}
+                                {data.video?.duration}
                             </span>
                             <CirclePlay
                                 size={32}

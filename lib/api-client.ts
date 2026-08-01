@@ -3,7 +3,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'https://n8n.varely
 type Method = 'GET' | 'POST'
 
 type APIFetchOptions = {
-    endpoint: 'search' | 'search/images' | 'search/news' | 'search/ask-ai' // np. 'search', 'images', 'news', 'videos'
+    endpoint: 'search' | 'search/images' | 'search/news' | 'search/videos' | 'search/ask-ai' // np. 'search', 'images', 'news', 'videos'
     method?: Method
     params?: string
     body?: unknown
