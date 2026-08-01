@@ -29,7 +29,7 @@ export default function RootLayout({
         <html
             lang="en"
             suppressHydrationWarning
-            className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
+            className={cn("antialiased", fontMono.variable, "font-sans", inter.variable, 'h-screen')}
         >
             <body className="min-h-screen bg-background">
                 <NextTopLoader color="#000000" height={3} showSpinner={false} />
@@ -38,7 +38,7 @@ export default function RootLayout({
                 </Suspense>
                 <ThemeProvider>
                     <TooltipProvider>
-                        <View className={'min-h-screen bg-background'
+                        <View className={'h-screen bg-background'
                             // + ' bg-blue-50 bg-[radial-gradient(#bedbff_1.5px,transparent_1.5px)] [background-size:24px_24px]'
                         }>
                             <Navbar />

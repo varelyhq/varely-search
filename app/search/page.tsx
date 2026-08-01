@@ -1,3 +1,4 @@
+import { AISearchSummary } from "@/components/ask/ai-search-summary";
 import { BottomNav } from "@/components/bottom-nav";
 import { LoadingLayout } from "@/components/loading-layout";
 import { SearchResults } from "@/components/search/results";
@@ -32,6 +33,9 @@ export default async function Page({ searchParams }: SearchPageProps) {
     return (
         <View className="flex-1">
             <LoadingLayout />
+            <View className="mb-6">
+                <AISearchSummary query={params.q} />
+            </View>
             <SearchResults results={results} />
             <BottomNav />
         </View>
