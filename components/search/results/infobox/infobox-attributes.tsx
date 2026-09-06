@@ -44,10 +44,11 @@ export function InfoboxAttributes({ attributes }: { attributes: string[][] }) {
                         <Attribute key={index} attribute={attribute} />
                     ))}
                 </CollapsibleContent>
-                <CollapsibleTrigger className='flex flex-col'>
+                <CollapsibleTrigger className='flex flex-col' render={
                     <Button size='xs' variant='outline' className='mx-auto'>
-                        {isOpen ? 'Pokaż mniej' : 'Pokaż wiecej'}
+                        {isOpen ? 'Pokaż mniej' : 'Pokaż więcej'}
                     </Button>
+                }>
                 </CollapsibleTrigger>
             </Collapsible>
         </View>

@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { Label } from "../ui/label";
 import { search_lang } from "@/constants/languages";
 import { LanguageSwitcher } from "./language-switcher";
+import { Flex } from "../ui/flex";
 
 function SafeSearchSelect() {
 
@@ -88,14 +89,24 @@ function SearchResultsLanguage() {
     )
 }
 
+function AISwitcher() {
+
+    const ai_summary = usePreferencesStore(store => store.ai_summary)
+    const setAiSummary = usePreferencesStore(store => store.setAiSummary)
+
+    return (
+        <Flex className="flex-row gap-2">
+            <Button size='sm' variant={ai_summary ? 'default' : 'secondary'} onClick={() => setAiSummary(true)}>Tak</Button>
+            <Button size='sm' variant={ai_summary ? 'secondary' : 'default'} onClick={() => setAiSummary(false)}>Nie</Button>
+        </Flex>
+    )
+}
+
 export function SettingsSheet() {
 
     return (
         <Sheet>
-            <SheetTrigger>
-                <Button size='icon' variant='outline'>
-                    <Settings />
-                </Button>
+            <SheetTrigger render={<Button size='icon' variant='outline'><Settings /></Button>}>
             </SheetTrigger>
             <SheetContent>
                 <SheetHeader>
@@ -110,7 +121,10 @@ export function SettingsSheet() {
                         <LanguageSwitcher />
                     </View>
                     <SearchResultsLanguage />
-                    <Label>Odpowiedź z użyciem sztucznej inteligencji</Label>
+                    <View className="gap-3">
+                        <Label>Odpowiedź z użyciem sztucznej inteligencji</Label>
+                        <AISwitcher />
+                    </View>
                 </View>
 
                 <SheetFooter>

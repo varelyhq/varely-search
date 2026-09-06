@@ -1,12 +1,13 @@
 import { AISearchSummary } from "@/components/ask/ai-search-summary";
 import { BottomNav } from "@/components/bottom-nav";
-import { LoadingLayout } from "@/components/loading-layout";
 import { SearchResults } from "@/components/search/results";
-import { View } from "@/components/view"
+import { WebResultsSkeletons } from "@/components/search/results/web-results";
+import { Flex } from "@/components/ui/flex";
 import { getSearch } from "@/lib/api-search";
+import { Suspense } from "react";
 
 type SearchPageProps = {
-    searchParams: Promise<{ q?: string }>
+    searchParams: Promise<{ q?: string; offset?: string; }>
 }
 
 export default async function Page({ searchParams }: SearchPageProps) {
@@ -22,22 +23,28 @@ export default async function Page({ searchParams }: SearchPageProps) {
         if (value !== undefined) readyParams.set(key, value)
     })
 
-    const { data: results, error } = await getSearch(readyParams.toString())
-
-    if (error || !results) return (
-        <View className="flex-1">
-            Wystąpił błąd
-        </View>
-    )
+    const queryKey = readyParams.toString()
 
     return (
-        <View className="flex-1">
-            <LoadingLayout />
-            <View className="mb-6">
-                <AISearchSummary query={params.q} />
-            </View>
-            <SearchResults results={results} />
+        <Flex className="flex-1">
+            {params.offset === '0' &&
+                <Flex className="mb-6">
+                    <AISearchSummary query={params.q} />
+                </Flex>
+            }
+            <Suspense key={queryKey} fallback={<WebResultsSkeletons />}>
+                <SearchResultsContent queryString={queryKey} />
+            </Suspense>
             <BottomNav />
-        </View>
+        </Flex>
     )
+}
+
+async function SearchResultsContent({ queryString }: { queryString: string }) {
+
+    const { data: results, error } = await getSearch(queryString)
+
+    if (error || !results) return <Flex className="flex-1">Wystąpił błąd</Flex>
+
+    return <SearchResults results={results} />
 }

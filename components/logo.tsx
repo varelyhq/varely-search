@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import { AuroraText } from "./ui/aurora-text"
 
 const logoVariants = cva(
     "select-none font-bold tracking-tight text-foreground brand-font",
@@ -26,7 +27,7 @@ export function Logo({ size, className }: Props) {
     return (
         <Link href='/'>
             <h1 className={cn(logoVariants({ size }), className)}>
-                Varely&nbsp;<span className="text-blue-500">Search</span>
+                Varely&nbsp;<AuroraText>Search</AuroraText>
             </h1>
         </Link>
     )

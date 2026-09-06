@@ -1,18 +1,20 @@
+'use client'
+
 import { Palette } from "lucide-react";
-import { Button } from "../ui/button";
 import { usePreferencesStore } from "@/stores/usePreferencesStore";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger } from "../ui/select";
+import { useTheme } from "next-themes";
 
 export function ThemeSwitcher() {
 
+    const { setTheme } = useTheme()
+
     const theme = usePreferencesStore(s => s.theme);
-    const setTheme = usePreferencesStore(s => s.setTheme);
+    const setPreferencesTheme = usePreferencesStore(s => s.setTheme);
 
     const onValueChange = (value: any) => {
-        if (value) setTheme(value)
-        const body = document.documentElement
-        body.classList.remove('dark', 'light')
-        if (value !== 'system') body.classList.add(value)
+        if (value) setPreferencesTheme(value)
+        if (value !== 'system') setTheme(value)
     }
 
     const translations = {

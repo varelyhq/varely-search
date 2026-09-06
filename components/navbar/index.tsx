@@ -1,6 +1,5 @@
 "use client"
 
-import { View } from "../view"
 import { Button } from "../ui/button"
 import { SlidersHorizontal, SquareArrowUpRight } from "lucide-react"
 import Link from "next/link"
@@ -8,21 +7,24 @@ import { LanguageSwitcher } from "./language-switcher"
 import { SettingsSheet } from "./settings-sheet"
 import { Suspense, useState } from "react"
 import { SearchBar } from "../search-bar"
-import { usePathname } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
 import { ThemeSwitcher } from "./theme-switcher"
-import { useSearchStore } from "@/stores/useSearchStore"
 import { Separator } from "../ui/separator"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { usePreferencesStore } from "@/stores/usePreferencesStore"
+import { Flex } from "../ui/flex"
+import { buildParams } from "@/lib/utils"
+import { SearchInput } from "../search/search-input"
+import { Logo } from "../logo"
 
 export function Navbar() {
 
     const pathname = usePathname()
 
     return (
-        <>
-            <View className="flex-row p-3 gap-2 sticky top-0 z-40 bg-background">
+        <Flex>
+            <Flex className="flex-row p-3 gap-2 sticky top-0 z-40 bg-background">
 
                 {pathname === '/' &&
                     <Link href='https://github.com/varelyhq/varely-search/' target='_blank'>
@@ -33,54 +35,73 @@ export function Navbar() {
                     </Link>
                 }
 
-                <Suspense fallback={null}>
-                    <SearchBar />
-                </Suspense>
+                {pathname !== '/' ?
+                    <Suspense fallback={null}>
+                        <Flex className="flex-row justify-start items-center gap-4">
+                            <Flex className="w-36 items-center">
+                                <Logo size='sm' />
+                            </Flex>
+                            <Flex className="w-xl">
+                                <SearchInput />
+                            </Flex>
+                        </Flex>
+                        {/* <SearchBar /> */}
+                    </Suspense>
+                    : null
+                }
 
-                <View className="ml-auto flex-row gap-2 items-center">
-                    <ThemeSwitcher />
+                <Flex className="ml-auto flex-row gap-2 items-center">
+                    <Flex className="not-sm:hidden">
+                        <ThemeSwitcher />
+                    </Flex>
                     <LanguageSwitcher />
                     <SettingsSheet />
-                </View>
+                </Flex>
 
-            </View>
+            </Flex>
 
             {pathname !== '/' && <NavTabs />}
 
-        </>
+        </Flex>
     )
 }
 
 function NavTabs() {
 
     const pathname = usePathname()
-    const buildParams = useSearchStore(s => s.buildParams)
+    const searchParams = useSearchParams()
 
     const [settingsVisible, setSettingsVisible] = useState(false)
 
+    const params = buildParams(
+        searchParams.get('q') || '',
+        searchParams.get('offset') || ''
+    )
+
     return (
-        <View className="gap-3">
-            <View className="flex-row gap-1 ml-44">
-                <NavTab active={pathname === '/ask'} href={"/ask?" + buildParams()}>Zapytaj AI</NavTab>
-                <NavTab active={pathname === '/search'} href={"/search?" + buildParams()}>Wszystko</NavTab>
-                <NavTab active={pathname === '/images'} href={"/images?" + buildParams()}>Grafika</NavTab>
-                <NavTab active={pathname === '/news'} href={"/news?" + buildParams()}>Wiadomości</NavTab>
-                <NavTab active={pathname === '/videos'} href={"/videos?" + buildParams()}>Filmy</NavTab>
-                <NavTab active={pathname === '/maps'} href={"/maps?" + buildParams()}>Mapy</NavTab>
+        <Flex className="gap-3">
+            <Flex className="flex-row gap-1 ml-48">
+                <NavTab active={pathname === '/ask'} href={"/ask?" + params}>Zapytaj AI</NavTab>
+                <NavTab active={pathname === '/search'} href={"/search?" + params}>Wszystko</NavTab>
+                <NavTab active={pathname === '/images'} href={"/images?" + params}>Grafika</NavTab>
+                <NavTab active={pathname === '/news'} href={"/news?" + params}>Wiadomości</NavTab>
+                <NavTab active={pathname === '/videos'} href={"/videos?" + params}>Filmy</NavTab>
+                <NavTab active={pathname === '/maps'} href={"/maps?" + params}>Mapy</NavTab>
                 <Tooltip>
-                    <TooltipTrigger>
+                    <TooltipTrigger render={
                         <Button variant='ghost' size='icon' onClick={() => setSettingsVisible(!settingsVisible)}>
                             <SlidersHorizontal />
                         </Button>
+                    }>
                     </TooltipTrigger>
                     <TooltipContent side='bottom'>
                         <p>Filtry</p>
                     </TooltipContent>
                 </Tooltip>
-            </View>
+            </Flex>
             <Separator />
             {settingsVisible && <SearchSettings />}
-        </View>
+        </Flex>
     )
 
 }
@@ -118,7 +139,7 @@ function SearchSettings() {
     }
 
     return (
-        <View className="flex-row gap-3 ml-44">
+        <Flex className="flex-row gap-3 ml-44">
 
             <Select items={items} open={isOpen} onOpenChange={setOpen} defaultValue='default'>
                 <SelectTrigger className='min-w-48'>
@@ -157,7 +178,7 @@ function SearchSettings() {
                     </SelectGroup>
                 </SelectContent>
             </Select>
-        </View>
+        </Flex>
     )
 }
 

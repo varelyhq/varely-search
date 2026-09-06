@@ -1,9 +1,9 @@
-import { View } from "@/components/view"
+import { Flex } from "@/components/ui/flex"
 
 export default function ImagesLayout({ children }: { children: React.ReactNode }) {
     return (
-        <View className="flex-1 p-6">
-            <View className="flex-1">{children}</View>
-        </View>
+        <Flex className="flex-1 p-6">
+            {children}
+        </Flex>
     )
 }

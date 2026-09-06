@@ -1,7 +1,6 @@
 import { create } from "zustand"
 import { usePreferencesStore } from "./usePreferencesStore"
 import { country_to_search_lang, language_to_user_interface_language } from "@/constants/languages"
-import { getSearch } from "@/lib/api-search"
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime"
 
 type FreshnessType = '' | 'pd' | 'pw' | 'pm' | 'py' | string
@@ -54,11 +53,14 @@ export const useSearchStore = create<SearchState>()(
             const stored_language = usePreferencesStore.getState().language
 
             const language = stored_language === 'default' ? (country_to_search_lang?.[region] || 'en') : stored_language
-            const user_interface_language = language_to_user_interface_language[language] || 'en-US';
+            const user_interface_language = language_to_user_interface_language[language] || 'en-US'
+
+            const query = get().query || ''
+            const offset = get().offset.toString() || ''
 
             return new URLSearchParams({
-                q: get().query,
-                offset: get().offset.toString(),
+                q: query,
+                offset: offset,
                 freshness: get().freshness,
                 country: region,
                 search_language: language,

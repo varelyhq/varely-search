@@ -1,16 +1,42 @@
-import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+"use client"
+
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Flex } from "@/components/ui/flex";
 import { View } from "@/components/view";
-import { NewsType, NewsResult } from "@/types/search-type";
-import { Newspaper } from "lucide-react";
+import { NewsType, NewsResult, Thumbnail } from "@/types/search-type";
+import { Newspaper, Text } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+
+function NewsThumbnail({ thumbnail }: { thumbnail: Thumbnail }) {
+
+    const [error, setError] = useState(false)
+
+    if (error) return (
+        <Flex className="h-28 w-auto items-center justify-center">
+            <Text className="size-12 text-muted-foreground" />
+        </Flex>
+    )
+
+    return (
+        <Image
+            src={thumbnail.src}
+            alt={thumbnail.alt || ''}
+            width={thumbnail.width || 100}
+            height={thumbnail.height || 100}
+            className="h-28 w-auto object-cover rounded-lg"
+            onError={() => setError(true)}
+        />
+    )
+}
 
 export function NewsSingle({ data }: { data: NewsResult }) {
 
     return (
         <Link href={data.url} className="">
             <View className="gap-2 hover:bg-muted p-3 rounded-lg">
-                <img src={data.thumbnail.src} className="h-28 w-auto object-cover rounded-lg" />
+                <NewsThumbnail thumbnail={data.thumbnail} />
                 <View className="flex-row items-center gap-1">
                     <img src={data.meta_url.favicon} className="rounded h-4 w-4" />
                     <span className="text-muted-foreground text-xs">{data.meta_url.netloc}</span>

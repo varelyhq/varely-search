@@ -9,6 +9,7 @@ import { Marker, MarkerContent, MarkerIcon } from "../ui/marker";
 import { Spinner } from "../ui/spinner";
 import { Bot, Check, Copy } from "lucide-react";
 import { Button } from "../ui/button";
+import { usePreferencesStore } from "@/stores/usePreferencesStore";
 
 function CopyMessageButton({ content }: { content: string }) {
 
@@ -48,6 +49,8 @@ function LoadingSummary() {
 
 export function AISearchSummary({ query }: { query: string }) {
 
+    const ai_summary = usePreferencesStore(s => s.ai_summary)
+
     const [response, setResponse] = useState<AIResponseType | null>(null)
 
     const getAISummary = async () => {
@@ -69,10 +72,14 @@ export function AISearchSummary({ query }: { query: string }) {
 
     useEffect(() => {
 
-        setResponse(null)
-        getAISummary()
+        if (ai_summary) {
+            setResponse(null)
+            getAISummary()
+        }
 
-    }, [query])
+    }, [query, ai_summary])
+
+    if (!ai_summary) return null
 
     return (
         <View className="max-w-156">

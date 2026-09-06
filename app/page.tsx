@@ -1,74 +1,26 @@
 'use client'
 
 import { Logo } from "@/components/logo"
-import { Autosuggest } from "@/components/search/autosuggest"
-import { Button } from "@/components/ui/button"
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
-import { View } from "@/components/view"
-import { useSearchStore } from "@/stores/useSearchStore"
-import { SearchIcon } from "lucide-react"
-import { useRouter } from 'next/navigation'
-import { useState } from "react"
-
-function SearchBar() {
-
-    const router = useRouter()
-
-    const query = useSearchStore(s => s.query)
-    const setQuery = useSearchStore(s => s.setQuery)
-    const getSearchResults = useSearchStore(s => s.getSearchResults)
-
-    const [isFocused, setIsFocused] = useState(false)
-
-    const onSubmit = () => {
-        if (!query.trim()) return
-        getSearchResults(router)
-    }
-
-    return (
-        <>
-            <View className="gap-4">
-                <InputGroup>
-                    <InputGroupInput
-                        value={query}
-                        onChange={e => setQuery(e.target.value)}
-                        onFocus={() => setIsFocused(true)}
-                        onBlur={() => setIsFocused(false)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") onSubmit()
-                        }}
-                        onSubmit={onSubmit}
-                        autoComplete='off'
-                        placeholder="Wyszukaj coś w Varely Search..."
-                    />
-                    <InputGroupAddon>
-                        <SearchIcon />
-                    </InputGroupAddon>
-                </InputGroup>
-                <Autosuggest query={query} onSelect={onSubmit} visible={isFocused} />
-            </View>
-
-            <View className="flex-row justify-center gap-4">
-                <Button size='lg' onClick={onSubmit}>Szukaj</Button>
-                <Button size='lg' variant='outline'>Szczęśliwy traf</Button>
-            </View>
-        </>
-    )
-}
+import { SearchInput } from "@/components/search/search-input"
+import { Container } from "@/components/ui/container"
+import { Flex } from "@/components/ui/flex"
+import { Particles } from "@/components/ui/particles"
+import { useTheme } from "next-themes"
 
 export default function Page() {
 
+    const { theme } = useTheme()
+
     return (
-        <View className="flex-1 h-full items-center">
-            <View className="flex-1 h-full max-w-md min-w-0 gap-8">
+        <Flex className="flex-1">
+            <Particles className="absolute inset-0" color={theme === 'light' ? "#000" : '#fff'} />
+            <Container className="relative flex-1 items-center my-0!">
 
-                <View className="min-h-23 max-h-88 h-80 justify-end">
+                <Flex className="h-full w-full max-w-xl gap-10 justify-center items-center -translate-y-[5vh] md:-translate-y-[8vh]">
                     <Logo />
-                </View>
-
-                <SearchBar />
-
-            </View>
-        </View>
+                    <SearchInput />
+                </Flex>
+            </Container>
+        </Flex>
     )
 }
