@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { View } from "@/components/view";
+import { Flex } from "@/components/ui/flex";
 import { useState } from "react";
 
 export function InfoboxAttributes({ attributes }: { attributes: string[][] }) {
@@ -15,7 +15,7 @@ export function InfoboxAttributes({ attributes }: { attributes: string[][] }) {
     const rest = attributes.slice(3);
 
     const Attribute = ({ attribute }: { attribute: string[] }) => (
-        <View className="mb-2 gap-0.5">
+        <Flex className="mb-2 gap-0.5">
             <span className="font-medium text-xs">
                 {attribute[0]}
             </span>
@@ -26,19 +26,19 @@ export function InfoboxAttributes({ attributes }: { attributes: string[][] }) {
                     dangerouslySetInnerHTML={{ __html: attribute[1] }}
                 />
             }
-        </View>
+        </Flex>
     )
 
     return (
-        <View className="gap-2">
+        <Flex className="gap-2">
             <h4 className="font-medium">Fakty</h4>
 
             <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-                <View>
+                <Flex>
                     {first_three.map((attribute, index) => (
                         <Attribute key={index} attribute={attribute} />
                     ))}
-                </View>
+                </Flex>
                 <CollapsibleContent>
                     {rest.map((attribute, index) => (
                         <Attribute key={index} attribute={attribute} />
@@ -51,6 +51,6 @@ export function InfoboxAttributes({ attributes }: { attributes: string[][] }) {
                 }>
                 </CollapsibleTrigger>
             </Collapsible>
-        </View>
+        </Flex>
     )
 }

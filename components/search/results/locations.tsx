@@ -1,12 +1,11 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { View } from "@/components/view";
+import { Flex } from "@/components/ui/flex";
 import { LocationResult, LocationsType } from "@/types/search-type";
 import { ArrowUpRight, Map } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-// import { LeafletMap } from "@/components/leaflet-map";
 
 const LeafletMap = dynamic(
     () => import("@/components/leaflet-map").then(mod => mod.LeafletMap),
@@ -20,8 +19,8 @@ export function Location({ data }: { data: LocationResult }) {
     const googleMapsHref = `https://www.google.com/maps/dir/?api=1&destination=${data.coordinates[0]},${data.coordinates[1]}`;
 
     return (
-        <View className="gap-2">
-            <View className="flex-row items-center gap-2">
+        <Flex className="gap-2">
+            <Flex className="flex-row items-center gap-2">
                 <Map size={16} className="text-muted-foreground" />
                 <h3 className="font-medium">{data.title}</h3>
                 <Link href={googleMapsHref} target='_blank' className="ml-auto">
@@ -31,22 +30,22 @@ export function Location({ data }: { data: LocationResult }) {
                         <ArrowUpRight />
                     </Button>
                 </Link>
-            </View>
-            <View className="rounded-lg overflow-hidden">
+            </Flex>
+            <Flex className="rounded-lg overflow-hidden">
                 <LeafletMap key={crypto.randomUUID()} lat={lat} lon={lon} zoom={data.zoom_level} title={data.title} />
-            </View>
+            </Flex>
 
-        </View>
+        </Flex>
     )
 }
 
 export function Locations({ data }: { data: LocationsType }) {
 
     return (
-        <View>
+        <Flex>
             {[data.results[0]].map((location, index) => (
                 <Location key={index} data={location} />
             ))}
-        </View>
+        </Flex>
     )
 }

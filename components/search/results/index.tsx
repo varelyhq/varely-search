@@ -1,13 +1,13 @@
 import { WebResult, WebResults } from "./web-results";
 import { Video, Videos } from "./videos";
 import { Query } from "./query";
-import { View } from "@/components/view";
 import { SearchResponse, SearchResponseItems } from "@/types/search-type";
 import { News, NewsSingle } from "./news";
 import { Infoboxes } from "./infobox";
 import { Faq, FaqSingle } from "./faq";
 import { Location, Locations } from "./locations";
 import { Discussion, Discussions } from "./discussions";
+import { Flex } from "@/components/ui/flex";
 
 export function SearchResults({ results }: { results: SearchResponse }) {
 
@@ -48,10 +48,10 @@ export function SearchResults({ results }: { results: SearchResponse }) {
     }
 
     return (
-        <View>
+        <Flex>
             <Query query={results.query} />
-            <View className="flex-row gap-24 items-start">
-                <View className="max-w-156 gap-8">
+            <Flex className="flex-row gap-24 items-start">
+                <Flex className="max-w-156 gap-8">
                     {results.mixed.main.map((mix, index) => (
                         <SearchResult
                             key={index}
@@ -60,9 +60,9 @@ export function SearchResults({ results }: { results: SearchResponse }) {
                             index={mix.index}
                         />
                     ))}
-                </View>
+                </Flex>
                 <Infoboxes data={results.infobox} />
-            </View>
-        </View>
+            </Flex>
+        </Flex>
     )
 }

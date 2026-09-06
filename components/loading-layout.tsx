@@ -2,7 +2,7 @@
 
 import { useSearchStore } from "@/stores/useSearchStore"
 import { useEffect } from "react"
-import { View } from "./view"
+import { Flex } from "@/components/ui/flex";
 import { Spinner } from "./ui/spinner"
 
 function LoadingMessage() {
@@ -12,9 +12,9 @@ function LoadingMessage() {
     if (!loading) return null
 
     return (
-        <View className="fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+        <Flex className="fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
             <Spinner className="size-6" />
-        </View>
+        </Flex>
     )
 }
 

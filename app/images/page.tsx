@@ -1,5 +1,5 @@
 import { GalleryItem } from "@/components/gallery-item";
-import { View } from "@/components/view"
+import { Flex } from "@/components/ui/flex";
 import { getImages } from "@/lib/api-images";
 import { ImageSearchResponseType } from "@/types/images-type";
 
@@ -17,13 +17,13 @@ function MasonryGallery({ results }: { results: ImageSearchResponseType }) {
     });
 
     return (
-        <View className="flex-row gap-4 w-full">
+        <Flex className="flex-row gap-4 w-full">
             {columns.map((col, colIndex) => (
-                <View key={colIndex} className="flex-1 gap-4 min-w-0">
+                <Flex key={colIndex} className="flex-1 gap-4 min-w-0">
                     {col.map((image, index) => <GalleryItem key={index} image={image} />)}
-                </View>
+                </Flex>
             ))}
-        </View>
+        </Flex>
     );
 }
 
@@ -43,14 +43,14 @@ export default async function Page({ searchParams }: SearchPageProps) {
     const { data: results, error } = await getImages(readyParams.toString())
 
     if (error || !results) return (
-        <View>
+        <Flex>
             Wystąpił błąd...
-        </View>
+        </Flex>
     )
 
     return (
-        <View className="flex-1">
+        <Flex className="flex-1">
             <MasonryGallery results={results} />
-        </View>
+        </Flex>
     )
 }

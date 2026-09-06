@@ -3,8 +3,7 @@
 import { Search, X } from "lucide-react";
 import { Logo } from "./logo";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { View } from "./view";
+import { Flex } from "@/components/ui/flex";
 import { useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Autosuggest, AutosuggestWrapper } from "./search/autosuggest";
@@ -40,13 +39,13 @@ export function SearchBar() {
     if (pathname === '/') return null
 
     return (
-        <View className="flex-row justify-start items-center gap-4">
+        <Flex className="flex-row justify-start items-center gap-4">
 
-            <View className="w-32">
+            <Flex className="w-32">
                 <Logo size='sm' />
-            </View>
+            </Flex>
 
-            <View className="w-xl">
+            <Flex className="w-xl">
                 <AutosuggestWrapper>
                     <InputGroup className="max-w-xl w-xl h-12">
                         <InputGroupInput
@@ -93,11 +92,11 @@ export function SearchBar() {
                         onSelect={v => { setQuery(v); handleSearch(); }}
                     />
                 </AutosuggestWrapper>
-            </View>
+            </Flex>
             {/* <Button onClick={handleSearch}>
                 Szukaj
                 <Search />
             </Button> */}
-        </View>
+        </Flex>
     )
 }

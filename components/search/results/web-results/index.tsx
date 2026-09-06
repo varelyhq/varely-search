@@ -1,4 +1,3 @@
-import { View } from "@/components/view";
 import Link from "next/link";
 import { Thumbnail } from "./thumbnail";
 import { Movie as MovieType, Product as ProductType, SearchResult, WebType } from "@/types/search-type";
@@ -14,11 +13,11 @@ function ReviewStars({ value, maxValue = 5 }: { value: number, maxValue?: number
     const stars = [...Array(maxValue).keys()]
 
     return (
-        <View className="flex-row gap-1">
+        <Flex className="flex-row gap-1">
             {stars.map(star => (
                 <Star key={star} size={14} className={`text-amber-500 ${star < value ? 'fill-amber-500' : ''}`} />
             ))}
-        </View>
+        </Flex>
     )
 }
 
@@ -27,10 +26,10 @@ function Product({ product }: { product: ProductType }) {
     if (!product) return null
 
     return (
-        <View className="gap-1 mt-1">
+        <Flex className="gap-1 mt-1">
             <span className="text-sm font-medium">{product.name}</span>
             <p className="text-sm text-muted-foreground" dangerouslySetInnerHTML={{ __html: product.description }} />
-            <View className='flex-row items-center gap-1'>
+            <Flex className='flex-row items-center gap-1'>
                 {product?.rating?.ratingValue &&
                     <>
                         <ReviewStars value={product.rating.ratingValue} />
@@ -45,8 +44,8 @@ function Product({ product }: { product: ProductType }) {
                         <b>Cena</b> {offer.price} {offer.priceCurrency}
                     </span>
                 ))}
-            </View>
-        </View>
+            </Flex>
+        </Flex>
     )
 }
 
@@ -55,8 +54,8 @@ function Movie({ movie }: { movie: MovieType }) {
     if (!movie) return null
 
     return (
-        <View className="max-w-96 gap-1 mt-1 overflow-hidden">
-            <View className="flex-row gap-2">
+        <Flex className="max-w-96 gap-1 mt-1 overflow-hidden">
+            <Flex className="flex-row gap-2">
                 <span className="text-xs font-medium">Aktorzy</span>
                 <span className="text-xs text-blue-600 whitespace-nowrap">
                     {movie.actors.slice(0, 3).map((actor, index) => (
@@ -68,8 +67,8 @@ function Movie({ movie }: { movie: MovieType }) {
                         </span>
                     ))}
                 </span>
-            </View>
-            <View className='flex-row items-center gap-1'>
+            </Flex>
+            <Flex className='flex-row items-center gap-1'>
                 <ReviewStars value={movie.rating.ratingValue / 2} />
                 <span className="text-xs text-muted-foreground">
                     {movie.rating.ratingValue} ({movie.rating.reviewCount} głosy)
@@ -80,21 +79,21 @@ function Movie({ movie }: { movie: MovieType }) {
                         <b>Cena</b> {offer.price} {offer.priceCurrency}
                     </span>
                 ))} */}
-            </View>
-        </View>
+            </Flex>
+        </Flex>
     )
 }
 
 export function WebResultVideo({ data }: { data: SearchResult }) {
     return (
-        <View className="flex-row gap-2 justify-between">
-            <View className="gap-2 w-full">
+        <Flex className="flex-row gap-2 justify-between">
+            <Flex className="gap-2 w-full">
 
                 <Link href={data.url}>
-                    <View className="gap-2">
-                        <View className="flex-row gap-2 items-center">
+                    <Flex className="gap-2">
+                        <Flex className="flex-row gap-2 items-center">
                             <img src={data.meta_url.favicon} className="w-5 h-5 rounded" />
-                            <View className="">
+                            <Flex className="">
                                 <span className="text-sm">
                                     {data?.profile?.name || data?.video?.publisher || data?.meta_url?.netloc}
                                 </span>
@@ -102,17 +101,17 @@ export function WebResultVideo({ data }: { data: SearchResult }) {
                                     {data.meta_url.netloc}{' '}
                                     {data.meta_url.path}
                                 </span>
-                            </View>
-                        </View>
-                        <View className="flex-row gap-2">
+                            </Flex>
+                        </Flex>
+                        <Flex className="flex-row gap-2">
                             <h2 className="text-blue-600 visited:text-purple-500 hover:underline">{data.title}</h2>
-                        </View>
-                    </View>
+                        </Flex>
+                    </Flex>
                 </Link>
 
-                <View className="flex-row gap-3">
+                <Flex className="flex-row gap-3">
                     <Link href={data.url} className="flex-1/4">
-                        <View className="relative aspect-video h-full">
+                        <Flex className="relative aspect-video h-full">
                             <Image
                                 src={data.video?.thumbnail?.src || data.thumbnail?.src}
                                 alt={data.video?.thumbnail?.alt || data.thumbnail?.alt}
@@ -126,9 +125,9 @@ export function WebResultVideo({ data }: { data: SearchResult }) {
                                 size={32}
                                 className="absolute text-white/75 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-index-20"
                             />
-                        </View>
+                        </Flex>
                     </Link>
-                    <View className="flex-3/4">
+                    <Flex className="flex-3/4">
                         <span className="text-muted-foreground text-sm">
                             {data.description}
                         </span>
@@ -136,14 +135,14 @@ export function WebResultVideo({ data }: { data: SearchResult }) {
                             <span className="font-medium">Opublikowane {' '}</span>
                             {data.age}
                         </span>
-                    </View>
-                </View>
+                    </Flex>
+                </Flex>
 
-            </View>
+            </Flex>
 
             <DeepResults deep_results={data.deep_results} />
 
-        </View>
+        </Flex>
     )
 }
 
@@ -154,24 +153,24 @@ export function WebResult({ data }: { data: SearchResult }) {
     if (data.subtype === 'video') return <WebResultVideo data={data} />
 
     return (
-        <View className="flex-row gap-2 justify-between">
-            <View className="gap-1">
+        <Flex className="flex-row gap-2 justify-between">
+            <Flex className="gap-1">
                 <Link href={result.url}>
-                    <View className="group gap-2">
-                        <View className="flex-row gap-2 items-center">
+                    <Flex className="group gap-2">
+                        <Flex className="flex-row gap-2 items-center">
                             <img src={result.meta_url.favicon} className="w-5 h-5 rounded" />
-                            <View className="">
+                            <Flex className="">
                                 <span className="text-sm">{result.profile.name}</span>
                                 <span className="text-xs text-muted-foreground line-clamp-1">
                                     {result.meta_url.netloc}{' '}
                                     {result.meta_url.path}
                                 </span>
-                            </View>
-                        </View>
-                        <View className="flex-row gap-2">
+                            </Flex>
+                        </Flex>
+                        <Flex className="flex-row gap-2">
                             <h2 className="text-blue-600 visited:text-purple-500 group-hover:underline">{result.title}</h2>
-                        </View>
-                    </View>
+                        </Flex>
+                    </Flex>
                 </Link>
 
                 {!(result.product && result.product.name && result.product.description) &&
@@ -185,9 +184,9 @@ export function WebResult({ data }: { data: SearchResult }) {
                 <Movie movie={result.movie} />
                 <DeepResults deep_results={result.deep_results} />
 
-            </View>
+            </Flex>
             <Thumbnail thumbnail={result.thumbnail} />
-        </View>
+        </Flex>
     )
 }
 

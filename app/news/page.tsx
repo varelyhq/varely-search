@@ -1,8 +1,8 @@
 import { LoadingLayout } from "@/components/loading-layout"
 import { News } from "@/components/news"
 import { NewsFilters } from "@/components/news/news-filters"
-import { View } from "@/components/view"
 import { getNews } from "@/lib/api-news"
+import { Flex } from "@/components/ui/flex";
 
 type SearchPageProps = {
     searchParams: Promise<{ q?: string }>
@@ -26,12 +26,12 @@ export default async function Page({ searchParams }: SearchPageProps) {
     if (error || !data) return null
 
     return (
-        <View className="flex-1">
-            <View className="max-w-156 gap-10">
+        <Flex className="flex-1">
+            <Flex className="max-w-156 gap-10">
                 <LoadingLayout />
                 <NewsFilters />
                 <News data={data} />
-            </View>
-        </View>
+            </Flex>
+        </Flex>
     )
 }
