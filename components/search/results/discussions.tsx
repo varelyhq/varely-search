@@ -2,12 +2,12 @@
 
 import Link from "next/link"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion"
-import { View } from "@/components/view"
 import { ArrowRight, ArrowUp, MessagesSquare } from "lucide-react"
 import Image from "next/image"
 import { DiscussionsType, SearchResult } from "@/types/search-type"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Flex } from "@/components/ui/flex"
 
 export function Discussion({ data }: { data: SearchResult }) {
     return (
@@ -24,10 +24,10 @@ export function Discussions({ data }: { data: DiscussionsType }) {
     const discussions = data.results.slice(0, visibleCount)
 
     return (
-        <View className="gap-4 my-4">
-            <View className='gap-2'>
+        <Flex className="gap-4 my-4">
+            <Flex className='gap-2'>
                 <h2>Dyskusje</h2>
-            </View>
+            </Flex>
             <Accordion>
                 {discussions.map((discussion, index) => (
                     <AccordionItem key={index} value={`item-${index}`}>
@@ -35,7 +35,7 @@ export function Discussions({ data }: { data: DiscussionsType }) {
                             <h3 className="font-medium">{discussion.title}</h3>
                         </AccordionTrigger>
                         <AccordionContent>
-                            <View className="flex-1 break-words">
+                            <Flex className="flex-1 break-words">
                                 {/* {discussion.data.question && <span className="font-medium" dangerouslySetInnerHTML={{ __html: discussion.data.question }} />} */}
                                 <span>
                                     {discussion.data.top_comment}
@@ -46,27 +46,27 @@ export function Discussions({ data }: { data: DiscussionsType }) {
                                         </span>
                                     </Link>
                                 </span>
-                            </View>
+                            </Flex>
                         </AccordionContent>
-                        <View className='flex-row gap-2 text-xs text-muted-foreground px-4 pb-2 items-center'>
+                        <Flex className='flex-row gap-2 text-xs text-muted-foreground px-4 pb-2 items-center'>
 
-                            <View className='flex-row gap-1 items-center'>
+                            <Flex className='flex-row gap-1 items-center'>
                                 <Image width={16} height={16} src={discussion.meta_url.favicon} alt='' />
                                 <span>{discussion.data.forum_name} ({discussion.language})</span>
-                            </View>
+                            </Flex>
                             ·
-                            <View className='flex-row gap-1 items-center'>
+                            <Flex className='flex-row gap-1 items-center'>
                                 <MessagesSquare size={14} />
                                 <span>{discussion.data.num_answers}</span>
-                            </View>
+                            </Flex>
                             ·
-                            <View className='flex-row gap-1 items-center'>
+                            <Flex className='flex-row gap-1 items-center'>
                                 <ArrowUp size={14} />
                                 <span>{discussion.data.score}</span>
-                            </View>
+                            </Flex>
                             ·
                             <span>{discussion.age}</span>
-                        </View>
+                        </Flex>
                     </AccordionItem>
                 ))}
             </Accordion>
@@ -78,6 +78,6 @@ export function Discussions({ data }: { data: DiscussionsType }) {
             >
                 {visibleCount === 3 ? 'Pokaż więcej' : 'Pokaż mniej'}
             </Button>
-        </View>
+        </Flex>
     )
 }

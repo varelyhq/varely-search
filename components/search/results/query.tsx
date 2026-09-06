@@ -1,4 +1,4 @@
-import { View } from "@/components/view";
+import { Flex } from "@/components/ui/flex";
 import { SearchQuery } from "@/types/SearchType";
 import Link from "next/link";
 
@@ -21,8 +21,8 @@ export function Query({ query }: { query: SearchQuery }) {
     if (!query.altered) return null
 
     return (
-        <View className="mt-4">
-            <View>
+        <Flex className="mt-4">
+            <Flex>
                 <span>
                     Wyniki dla {' '}
                     <Link href={`/search?q=${query.altered}`}>
@@ -35,7 +35,7 @@ export function Query({ query }: { query: SearchQuery }) {
                         <span className="text-blue-500 hover:underline">{query.original}</span>
                     </Link>
                 </span>
-            </View>
-        </View>
+            </Flex>
+        </Flex>
     )
 }

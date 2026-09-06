@@ -2,9 +2,9 @@
 
 import { ListFilter } from "lucide-react";
 import { Button } from "../ui/button";
-import { View } from "../view";
 import { useSearchStore } from "@/stores/useSearchStore";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { Flex } from "../ui/flex";
 
 const freshness_options = [
     '', // all time
@@ -31,12 +31,12 @@ export function NewsFilters() {
     }
 
     return (
-        <View className="gap-2">
-            <View className="flex-row items-center gap-2">
+        <Flex className="gap-2">
+            <Flex className="flex-row items-center gap-2">
                 <ListFilter size={12} />
                 <span className="text-xs text-muted-foreground">Filtruj</span>
-            </View>
-            <View className="flex-row gap-2">
+            </Flex>
+            <Flex className="flex-row gap-2">
                 {freshness_options.map(option => (
                     <Button
                         key={option}
@@ -47,7 +47,7 @@ export function NewsFilters() {
                         {translations[option]}
                     </Button>
                 ))}
-            </View>
-        </View>
+            </Flex>
+        </Flex>
     )
 }

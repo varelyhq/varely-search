@@ -3,7 +3,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { View } from "./view";
+import { Flex } from "@/components/ui/flex";
 
 const markerIcon = L.icon({
     iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
@@ -22,7 +22,7 @@ type Props = {
 
 export function LeafletMap({ lat, lon, zoom, title }: Props) {
     return (
-        <View className='w-full h-87.5'>
+        <Flex className='w-full h-87.5'>
             <MapContainer
                 key={`${lat}-${lon}`}
                 center={[lat, lon]}
@@ -38,6 +38,6 @@ export function LeafletMap({ lat, lon, zoom, title }: Props) {
                     <Popup>{title}</Popup>
                 </Marker>
             </MapContainer>
-        </View>
+        </Flex>
     );
 }

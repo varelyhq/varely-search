@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from "react";
-import { View } from "../view";
+import { Flex } from "@/components/ui/flex";
 import { AnimatedText } from "./animated-text";
 import { apiClient } from "@/lib/api-client";
 import { AIResponseType, UsageType } from "@/stores/useChatStore";
@@ -34,7 +34,7 @@ function CopyMessageButton({ content }: { content: string }) {
 function LoadingSummary() {
 
     return (
-        <View className="flex-row gap-3 justify-between">
+        <Flex className="flex-row gap-3 justify-between">
             <Marker role='status'>
                 <MarkerIcon>
                     <Spinner />
@@ -43,7 +43,7 @@ function LoadingSummary() {
                     <span className="font-medium">Pomocny AI</span> generuje podsumowanie...
                 </MarkerContent>
             </Marker>
-        </View>
+        </Flex>
     )
 }
 
@@ -82,22 +82,22 @@ export function AISearchSummary({ query }: { query: string }) {
     if (!ai_summary) return null
 
     return (
-        <View className="max-w-156">
+        <Flex className="max-w-156">
             {response ? (
-                <View className="text-sm gap-1">
-                    <View className="flex-1 flex-row gap-2 items-center">
+                <Flex className="text-sm gap-1">
+                    <Flex className="flex-1 flex-row gap-2 items-center">
                         <Bot size={14} className="text-muted-foreground" />
                         <span className="text-xs text-muted-foreground">
                             Zużycie tokenów: <strong>{response.usage.total_tokens}</strong>
                         </span>
-                        <View className="ml-auto">
+                        <Flex className="ml-auto">
                             <CopyMessageButton content={response.message.content} />
-                        </View>
-                    </View>
+                        </Flex>
+                    </Flex>
                     <AnimatedText content={response.message.content} shouldAnimate />
-                </View>
+                </Flex>
             ) : <LoadingSummary />
             }
-        </View>
+        </Flex>
     )
 }

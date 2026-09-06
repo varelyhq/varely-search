@@ -1,22 +1,22 @@
 import { NewsResult, NewsType } from "@/types/search-type";
-import { View } from "../view";
 import { WebResult } from "../search/results/web-results";
+import { Flex } from "../ui/flex";
 
 // TODO: FIX TYPING
 
 export function NewsItem({ data }: { data: NewsResult }) {
     return (
-        <View>
+        <Flex>
             <WebResult data={data} />
-        </View>
+        </Flex>
     )
 }
 
 export function News({ data }: { data: NewsType }) {
 
     return (
-        <View className="gap-10">
+        <Flex className="gap-10">
             {data.results.map((item, index) => <NewsItem key={index} data={item} />)}
-        </View>
+        </Flex>
     )
 }

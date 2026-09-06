@@ -1,5 +1,4 @@
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
-import { View } from "@/components/view";
 import { Search } from "lucide-react";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { AutosuggestSkeleton } from "./skeleton";
@@ -9,9 +8,9 @@ import { BorderBeam } from "@/components/ui/border-beam";
 
 export function AutosuggestWrapper({ children }: { children: React.ReactNode }) {
     return (
-        <View className="relative w-full">
+        <Flex className="relative w-full">
             {children}
-        </View>
+        </Flex>
     )
 }
 

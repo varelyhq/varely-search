@@ -2,7 +2,6 @@ import { Settings } from "lucide-react"
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet"
 import { Button } from "../ui/button"
 import { usePreferencesStore } from "@/stores/usePreferencesStore"
-import { View } from "../view";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Label } from "../ui/label";
 import { search_lang } from "@/constants/languages";
@@ -25,7 +24,7 @@ function SafeSearchSelect() {
     }
 
     return (
-        <View className="gap-3">
+        <Flex className="gap-3">
             <Label>Bezpieczne wyszukiwanie</Label>
             <Select value={safeSearch} onValueChange={onValueChange}>
                 <SelectTrigger>
@@ -47,7 +46,7 @@ function SafeSearchSelect() {
                     </SelectGroup>
                 </SelectContent>
             </Select>
-        </View>
+        </Flex>
     )
 }
 
@@ -61,11 +60,11 @@ function SearchResultsLanguage() {
     }
 
     return (
-        <View className="gap-3">
-            <View className="gap-1">
+        <Flex className="gap-3">
+            <Flex className="gap-1">
                 <Label>Język interfejsu</Label>
                 <span className="text-xs text-muted-foreground">Domyślnie na podstawie regionu</span>
-            </View>
+            </Flex>
             <Select value={language} onValueChange={onValueChange}>
                 <SelectTrigger>
                     <SelectValue placeholder='domyślnie'>
@@ -85,7 +84,7 @@ function SearchResultsLanguage() {
                     </SelectGroup>
                 </SelectContent>
             </Select>
-        </View>
+        </Flex>
     )
 }
 
@@ -114,18 +113,18 @@ export function SettingsSheet() {
                     <SheetDescription>Dostostuj swoje doświadczenie.</SheetDescription>
                 </SheetHeader>
 
-                <View className="px-6 gap-6">
+                <Flex className="px-6 gap-6">
                     <SafeSearchSelect />
-                    <View className="gap-3">
+                    <Flex className="gap-3">
                         <Label>Region pochodzenia wyników</Label>
                         <LanguageSwitcher />
-                    </View>
+                    </Flex>
                     <SearchResultsLanguage />
-                    <View className="gap-3">
+                    <Flex className="gap-3">
                         <Label>Odpowiedź z użyciem sztucznej inteligencji</Label>
                         <AISwitcher />
-                    </View>
-                </View>
+                    </Flex>
+                </Flex>
 
                 <SheetFooter>
                     <SheetClose render={<Button type="submit">Gotowe</Button>} />

@@ -1,10 +1,10 @@
 'use client'
 
 import { useRef, useState } from "react";
-import { View } from "../view";
 import { Button } from "../ui/button";
 import { Check, Copy } from "lucide-react";
 import { MessageType } from "@/stores/useChatStore";
+import { Flex } from "../ui/flex";
 
 function CopyMessageButton({ content }: { content: string }) {
 
@@ -28,13 +28,13 @@ function CopyMessageButton({ content }: { content: string }) {
 
 export function UnderMessageContent({ message }: { message: MessageType }) {
     return (
-        <View className="group-hover:opacity-100 opacity-0 flex-row items-center">
+        <Flex className="group-hover:opacity-100 opacity-0 flex-row items-center">
             {message?.metadata?.total_tokens &&
                 <span className="text-xs text-muted-foreground">
                     Zużyto tokenów: {message?.metadata?.total_tokens}
                 </span>
             }
             <CopyMessageButton content={message.content} />
-        </View>
+        </Flex>
     )
 }

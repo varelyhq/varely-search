@@ -3,7 +3,7 @@ import "./globals.css"
 import { Geist_Mono, Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
-import { View } from "@/components/view";
+import { Flex } from "@/components/ui/flex";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -37,7 +37,7 @@ export default function RootLayout({
                 </Suspense>
                 <ThemeProvider>
                     <TooltipProvider>
-                        <View className={'h-screen bg-background'
+                        <Flex className={'h-screen bg-background'
                             // + ' bg-blue-50 bg-[radial-gradient(#bedbff_1.5px,transparent_1.5px)] [background-size:24px_24px]'
                         }>
                             <Suspense fallback={null}>
@@ -45,7 +45,7 @@ export default function RootLayout({
                             </Suspense>
                             {children}
                             <Footer />
-                        </View>
+                        </Flex>
                     </TooltipProvider>
                 </ThemeProvider>
             </body>

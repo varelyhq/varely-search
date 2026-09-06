@@ -1,7 +1,7 @@
 import { LoadingLayout } from "@/components/loading-layout"
 import { Videos } from "@/components/videos"
-import { View } from "@/components/view"
 import { getVideos } from "@/lib/api-videos"
+import { Flex } from "@/components/ui/flex";
 
 type SearchPageProps = {
     searchParams: Promise<{ q?: string }>
@@ -25,11 +25,11 @@ export default async function Page({ searchParams }: SearchPageProps) {
     if (error || !data) return null
 
     return (
-        <View className="flex-1">
-            <View className="max-w-156 gap-10">
+        <Flex className="flex-1">
+            <Flex className="max-w-156 gap-10">
                 <LoadingLayout />
                 <Videos data={data} />
-            </View>
-        </View>
+            </Flex>
+        </Flex>
     )
 }

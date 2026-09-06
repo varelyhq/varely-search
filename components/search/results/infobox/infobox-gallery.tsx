@@ -1,6 +1,6 @@
 'use client'
 
-import { View } from "@/components/view"
+import { Flex } from "@/components/ui/flex"
 import { cn } from "@/lib/utils"
 import { Thumbnail } from "@/types/search-type"
 import Image from "next/image"
@@ -18,14 +18,14 @@ function InfoboxGalleryImage({ image, onError, className }: { image: Thumbnail, 
     if (error) return null
 
     return (
-        <View className={cn("relative aspect-[3/3] rounded-lg overflow-hidden", className)}>
+        <Flex className={cn("relative aspect-[3/3] rounded-lg overflow-hidden", className)}>
             <Image
                 fill
                 src={image.src} alt={image.alt || ''}
                 className="object-cover hover:scale-110 duration-200"
                 onError={handleError}
             />
-        </View>
+        </Flex>
     )
 }
 
@@ -45,13 +45,13 @@ export function InfoboxGallery({ images }: { images: Thumbnail[] }) {
     const isSingle = errors === images.length - 1
 
     return (
-        <View className={`gap-2 grid ${isSingle ? 'grid-cols-1' : 'grid-cols-2'}`}>
+        <Flex className={`gap-2 grid ${isSingle ? 'grid-cols-1' : 'grid-cols-2'}`}>
             <InfoboxGalleryImage image={firstImage} className={isSingle ? 'aspect-video' : ''} />
-            <View className="gap-2 grid grid-cols-2 grid-rows-2">
+            <Flex className="gap-2 grid grid-cols-2 grid-rows-2">
                 {rest.map((image, index) => (
                     <InfoboxGalleryImage key={index} image={image} onError={increaseError} />
                 ))}
-            </View>
-        </View>
+            </Flex>
+        </Flex>
     )
 }

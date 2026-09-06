@@ -1,9 +1,9 @@
-import { View } from "@/components/view"
+import { Flex } from "@/components/ui/flex"
 
 export default function AskLayout({ children }: { children: React.ReactNode }) {
     return (
-        <View className="flex-1 h-full p-6 min-h-0">
+        <Flex className="flex-1 h-full p-6 min-h-0">
             {children}
-        </View>
+        </Flex>
     )
 }

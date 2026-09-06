@@ -1,9 +1,9 @@
 'use client'
 
 import { useSearchStore } from "@/stores/useSearchStore";
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../ui/pagination";
-import { View } from "../view";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../ui/pagination";
 import { useRouter } from "next/navigation";
+import { Flex } from "../ui/flex";
 
 export function BottomNav() {
 
@@ -18,7 +18,7 @@ export function BottomNav() {
     const nextPage = offset !== 9 ? () => setOffset(offset + 1, router) : () => { }
 
     return (
-        <View className="mt-8">
+        <Flex className="mt-8">
             <Pagination className="justify-start">
                 <PaginationContent>
                     <PaginationItem>
@@ -41,6 +41,6 @@ export function BottomNav() {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
-        </View >
+        </Flex>
     )
 }
