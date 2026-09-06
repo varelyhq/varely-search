@@ -48,11 +48,10 @@ export function SearchResults({ results }: { results: SearchResponse }) {
     }
 
     return (
-        <View className="container mx-auto">
+        <View>
             <Query query={results.query} />
-
             <View className="flex-row gap-24 items-start">
-                <View className="max-w-156 gap-8 pt-6">
+                <View className="max-w-156 gap-8">
                     {results.mixed.main.map((mix, index) => (
                         <SearchResult
                             key={index}
@@ -64,13 +63,6 @@ export function SearchResults({ results }: { results: SearchResponse }) {
                 </View>
                 <Infoboxes data={results.infobox} />
             </View>
-
-            {/* <View className="flex-row gap-20 items-start pt-6">
-                <WebResults results={results.web} />
-                <Infobox infobox={results.infobox} />
-            </View>
-            <Discussions discussions={results.discussions} />
-            <Videos videos={results.videos} /> */}
         </View>
     )
 }

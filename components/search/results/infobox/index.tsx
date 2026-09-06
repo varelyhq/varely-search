@@ -2,12 +2,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { View } from "@/components/view";
 import { ExternalProfile, InfoboxResult, InfoboxType, LocationResult, Profile, Rating } from "@/types/search-type";
-import { Globe, Mail, MapPin, Phone, Smile } from "lucide-react";
+import { Globe, Mail, MapPin, Phone, Smile, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { InfoboxGallery } from "./infobox-gallery";
 import { InfoboxAttributes } from "./infobox-attributes";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Flex } from "@/components/ui/flex";
 
 function InfoboxTitle({ title, family_friendly }: { title: string, family_friendly: boolean }) {
     return (
@@ -18,7 +19,7 @@ function InfoboxTitle({ title, family_friendly }: { title: string, family_friend
                 <Tooltip>
                     <TooltipTrigger><Smile size={16} className="text-green-500" /></TooltipTrigger>
                     <TooltipContent>
-                        This search is Family Friendly
+                        Wyniki wyszukiwania są przyjazne dla młodszych
                     </TooltipContent>
                 </Tooltip>
                 :
@@ -65,16 +66,19 @@ function InfoboxLongDescription({ url, long_desc }: { url: string, long_desc: st
 
 function InfoboxRatings({ ratings }: { ratings: Rating[] }) {
 
-    if (!ratings.length) return null
+    if (!ratings?.length) return null
 
     return (
-        <View>
-            {ratings && ratings.map((rating, rating_index) => (
-                <View key={rating_index}>
-                    {rating.ratingValue}
-                </View>
+        <Flex className="gap-1">
+            {ratings.map((rating, i) => (
+                <Link href={rating.profile.url} key={i} className="hover:underline">
+                    <Flex className="text-xs text-muted-foreground flex-row gap-1 items-center">
+                        ({rating.ratingValue}) <Star className="text-amber-400 fill-amber-400 size-3" />
+                        {' · '}{rating.profile.name} ({rating.reviewCount} opinii)
+                    </Flex>
+                </Link>
             ))}
-        </View>
+        </Flex>
     )
 }
 
@@ -124,20 +128,20 @@ function InfoboxLocation({ location }: { location?: LocationResult }) {
                 <MapPin size={16} className="text-muted-foreground" />
                 <span className="text-xs text-muted-foreground">{location.postal_address.displayAddress}</span>
             </View>
-            {location.contact.telephone && (
+            {location?.contact?.telephone && (
                 <Link href={'tel:' + location.contact.telephone}>
-                <View className="flex-row items-center gap-2">
-                    <Phone size={16} className="text-muted-foreground" />
-                    <span className="text-xs text-blue-600">{location.contact.telephone}</span>
-                </View>
+                    <View className="flex-row items-center gap-2">
+                        <Phone size={16} className="text-muted-foreground" />
+                        <span className="text-xs text-blue-600">{location.contact.telephone}</span>
+                    </View>
                 </Link>
             )}
-            {location.contact.email && (
+            {location?.contact?.email && (
                 <Link href={'mailto:' + location.contact.telephone}>
-                <View className="flex-row items-center gap-2">
-                    <Mail size={16} className="text-muted-foreground" />
-                    {location.contact.email}
-                </View>
+                    <View className="flex-row items-center gap-2">
+                        <Mail size={16} className="text-muted-foreground" />
+                        {location.contact.email}
+                    </View>
                 </Link>
             )}
         </View>
@@ -155,12 +159,12 @@ function Infobox({ data }: { data: InfoboxResult }) {
                         <InfoboxTitle title={data.title} family_friendly={data.family_friendly} />
                         <InfoboxDescription description={data.description} />
                         <InfoboxWebsiteUrl website_url={data.website_url} />
+                        <InfoboxRatings ratings={data.ratings} />
                     </View>
                     <InfoboxGallery images={data.images} />
                     <InfoboxLocation location={data.location} />
                     <InfoboxLongDescription url={data.url} long_desc={data.long_desc} />
                     <InfoboxAttributes attributes={data.attributes} />
-                    <InfoboxRatings ratings={data.ratings} />
                     <Separator />
                     <InfoboxProfiles profiles={data.profiles} />
 

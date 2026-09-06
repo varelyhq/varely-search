@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import { View } from "@/components/view";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
-import { usePreferencesStore } from "@/stores/usePreferencesStore";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Suspense } from "react";
 import { SearchInitializer } from "@/components/search/search-init";
@@ -41,7 +40,9 @@ export default function RootLayout({
                         <View className={'h-screen bg-background'
                             // + ' bg-blue-50 bg-[radial-gradient(#bedbff_1.5px,transparent_1.5px)] [background-size:24px_24px]'
                         }>
-                            <Navbar />
+                            <Suspense fallback={null}>
+                                <Navbar />
+                            </Suspense>
                             {children}
                             <Footer />
                         </View>

@@ -1,5 +1,7 @@
-import { Spinner } from "@/components/ui/spinner";
+import { WebResultsSkeletons } from "@/components/search/results/web-results"
 
 export default function Loading() {
-    return <Spinner />
+    return (
+        <WebResultsSkeletons />
+    )
 }

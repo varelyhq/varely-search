@@ -22,7 +22,7 @@ export function BottomNav() {
             <Pagination className="justify-start">
                 <PaginationContent>
                     <PaginationItem>
-                        <PaginationPrevious onClick={prevPage} />
+                        <PaginationPrevious text="Poprzedni" onClick={prevPage} />
                     </PaginationItem>
 
                     {items.map(item => (
@@ -37,7 +37,7 @@ export function BottomNav() {
                     ))}
 
                     <PaginationItem>
-                        <PaginationNext onClick={nextPage} />
+                        <PaginationNext text="Następny" onClick={nextPage} />
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
