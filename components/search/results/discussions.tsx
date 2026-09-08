@@ -2,32 +2,28 @@
 
 import Link from "next/link"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion"
-import { ArrowRight, ArrowUp, MessagesSquare } from "lucide-react"
+import { ArrowRight, ArrowUp, MessageCircle, MessagesSquare } from "lucide-react"
 import Image from "next/image"
-import { DiscussionsType, SearchResult } from "@/types/search-type"
+import { DiscussionsType } from "@/types/search-type"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Flex } from "@/components/ui/flex"
-
-export function Discussion({ data }: { data: SearchResult }) {
-    return (
-        null
-    )
-}
+import { Section, SectionHeader, SectionIcon, SectionTitle } from "@/components/ui/section"
 
 export function Discussions({ data }: { data: DiscussionsType }) {
 
     const [visibleCount, setVisibleCount] = useState(3)
 
-    if (!data) return null;
+    if (!data) return null
 
     const discussions = data.results.slice(0, visibleCount)
 
     return (
-        <Flex className="gap-4 my-4">
-            <Flex className='gap-2'>
-                <h2>Dyskusje</h2>
-            </Flex>
+        <Section>
+            <SectionHeader>
+                <SectionIcon icon={MessageCircle} />
+                <SectionTitle>Dyskusje</SectionTitle>
+            </SectionHeader>
             <Accordion>
                 {discussions.map((discussion, index) => (
                     <AccordionItem key={index} value={`item-${index}`}>
@@ -36,7 +32,6 @@ export function Discussions({ data }: { data: DiscussionsType }) {
                         </AccordionTrigger>
                         <AccordionContent>
                             <Flex className="flex-1 break-words">
-                                {/* {discussion.data.question && <span className="font-medium" dangerouslySetInnerHTML={{ __html: discussion.data.question }} />} */}
                                 <span>
                                     {discussion.data.top_comment}
                                     <Link href={discussion.url} className='no-underline!'>
@@ -78,6 +73,6 @@ export function Discussions({ data }: { data: DiscussionsType }) {
             >
                 {visibleCount === 3 ? 'Pokaż więcej' : 'Pokaż mniej'}
             </Button>
-        </Flex>
+        </Section>
     )
 }

@@ -1,35 +1,27 @@
-import { LoadingLayout } from "@/components/loading-layout"
-import { Videos } from "@/components/videos"
 import { getVideos } from "@/lib/api-videos"
 import { Flex } from "@/components/ui/flex";
+import { WebResultVideo } from "@/components/search/results/web-results/video";
+import { paramsToString } from "@/lib/utils";
+import { ParamsType } from "@/types/params-type";
+import { BottomNav } from "@/components/bottom-nav";
+import { EmptyQuery } from "@/components/empty-query";
+import { SearchError } from "@/components/search/search-error";
 
-type SearchPageProps = {
-    searchParams: Promise<{ q?: string }>
-}
+export default async function Page({ searchParams }: ParamsType) {
 
-export default async function Page({ searchParams }: SearchPageProps) {
+    const originalParams = await searchParams
+    if (!originalParams.q) return <EmptyQuery />
 
-    const params = await searchParams
+    const params = paramsToString(originalParams)
+    const { data, error } = await getVideos(params)
 
-    if (!params.q) {
-        return <div>Wpisz coś, żeby wyszukać.</div>
-    }
-
-    const readyParams = new URLSearchParams()
-    Object.entries(params).forEach(([key, value]) => {
-        if (value !== undefined) readyParams.set(key, value)
-    })
-
-    const { data, error } = await getVideos(readyParams.toString())
-
-    if (error || !data) return null
+    if (error || !data) return <SearchError />
 
     return (
-        <Flex className="flex-1">
-            <Flex className="max-w-156 gap-10">
-                <LoadingLayout />
-                <Videos data={data} />
-            </Flex>
+        <Flex className="max-w-156 gap-8">
+            {/* @ts-ignore TODO: FIX TYPING!!! */}
+            {data.results.map((video, index) => <WebResultVideo key={index} data={video} />)}
+            <BottomNav />
         </Flex>
     )
 }

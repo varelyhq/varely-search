@@ -5,7 +5,7 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 export type Language = typeof search_lang[number] | 'default'
 export type Region = typeof countries[number]
 export type SafeSearch = 'off' | 'moderate' | 'strict'
-export type Theme = 'light' | 'dark' | 'system'
+export type Theme = 'light' | 'dark'
 
 type PreferencesState = {
   language: Language

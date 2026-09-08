@@ -1,4 +1,3 @@
-
 // The 2 or more character language code for which the search results are provided.
 export const search_lang = [
     'ar',
@@ -197,7 +196,7 @@ export const continents = [
     },
 ]
 
-export const country_translations: Record<string, string> = {
+export const country_translations_en: Record<string, string> = {
     'AR': 'Argentina',
     'AU': 'Australia',
     'AT': 'Austria',
@@ -237,6 +236,45 @@ export const country_translations: Record<string, string> = {
     'US': 'United States',
 }
 
+export const country_translations: Record<string, string> = {
+    'AR': 'Argentyna',
+    'AU': 'Australia',
+    'AT': 'Austria',
+    'BE': 'Belgia',
+    'BR': 'Brazylia',
+    'CA': 'Kanada',
+    'CL': 'Chile',
+    'DK': 'Dania',
+    'FI': 'Finlandia',
+    'FR': 'Francja',
+    'DE': 'Niemcy',
+    'GR': 'Grecja',
+    'HK': 'Hongkong',
+    'IN': 'Indie',
+    'ID': 'Indonezja',
+    'IT': 'Włochy',
+    'JP': 'Japonia',
+    'KR': 'Korea Południowa',
+    'MY': 'Malezja',
+    'MX': 'Meksyk',
+    'NL': 'Holandia',
+    'NZ': 'Nowa Zelandia',
+    'NO': 'Norwegia',
+    'CN': 'Chiny',
+    'PL': 'Polska',
+    'PT': 'Portugalia',
+    'PH': 'Filipiny',
+    'RU': 'Rosja',
+    'SA': 'Arabia Saudyjska',
+    'ZA': 'Republika Południowej Afryki',
+    'ES': 'Hiszpania',
+    'SE': 'Szwecja',
+    'CH': 'Szwajcaria',
+    'TW': 'Tajwan',
+    'TR': 'Turcja',
+    'GB': 'Wielka Brytania',
+    'US': 'Stany Zjednoczone',
+}
 
 export const language_to_user_interface_language: Record<string, string | null> = {
     ar: null,

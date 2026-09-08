@@ -3,15 +3,16 @@
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field"
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupText, InputGroupTextarea } from "@/components/ui/input-group"
 import { useChatStore } from "@/stores/useChatStore"
-import { useSearchStore } from "@/stores/useSearchStore"
+import { useSearchParams } from "next/navigation"
 import { KeyboardEvent, useState } from "react"
 
 export function SendMessageBar() {
 
-    const query = useSearchStore(s => s.query)
+    const params = useSearchParams()
+
     const sendMessage = useChatStore(s => s.sendMessage)
 
-    const [message, setMessage] = useState(query || '')
+    const [message, setMessage] = useState(params.get('q') || '')
 
     const hasError = message.length > 300
 
@@ -53,7 +54,7 @@ export function SendMessageBar() {
                     </InputGroupButton>
                 </InputGroupAddon>
             </InputGroup>
-            <FieldDescription>
+            <FieldDescription className="text-xs">
                 AI może popełniać błędy. Sprawdzaj odpowiedzi 2 razy.
                 Asystent nie pamięta poprzednich wiadomości. Zawsze zadawaj dokładne pytania.
             </FieldDescription>

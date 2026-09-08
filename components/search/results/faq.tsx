@@ -1,24 +1,11 @@
 'use client'
 
+import { useState } from "react";
+import Link from "next/link";
+import { MessageCircle } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Flex } from "@/components/ui/flex";
-import { FaqItem, FaqType } from "@/types/search-type";
-import { MessageCircle } from "lucide-react";
-import Link from "next/link";
-import { useState } from "react";
-
-export function FaqSingle({ data, asAccordion }: { data: FaqItem, asAccordion: boolean }) {
-
-    if (!asAccordion) return (
-        <Flex>
-            {data.title}
-            {data.url}
-            {data.question}
-            {data.answer}
-            {data.meta_url.netloc}
-        </Flex>
-    )
-}
+import { FaqType } from "@/types/search-type";
 
 export function Faq({ data }: { data: FaqType }) {
 
@@ -44,21 +31,18 @@ export function Faq({ data }: { data: FaqType }) {
                         <AccordionTrigger onClick={increaseLimit}>{faq.question}</AccordionTrigger>
                         <AccordionContent>
                             <span dangerouslySetInnerHTML={{ __html: faq.answer }} />
-                            <Link href={faq.url} className="no-underline!">
-                                <Flex className="mt-3 gap-2">
-                                    <Flex className='flex-row gap-2'>
-                                        <img src={faq.meta_url.favicon} className="size-5" />
-                                        <Flex>
-                                            <span className="text-xs">{faq.meta_url.netloc}</span>
-                                            <span className="text-xs text-muted-foreground">{faq.meta_url.netloc} {faq.meta_url.path}</span>
-                                        </Flex>
+                            <Link href={faq.url} className="group flex flex-col gap-2 no-underline! mt-3">
+                                <Flex className='flex-row gap-2'>
+                                    <img src={faq.meta_url.favicon} className="size-5" />
+                                    <Flex>
+                                        <span className="text-xs">{faq.meta_url.netloc}</span>
+                                        <span className="text-xs text-muted-foreground">{faq.meta_url.netloc} {faq.meta_url.path}</span>
                                     </Flex>
-                                    <span className="text-sm text-blue-600 hover:underline!">{faq.title}</span>
                                 </Flex>
+                                <span className="text-sm text-blue-600 dark:text-blue-400 group-hover:underline!">{faq.title}</span>
                             </Link>
                         </AccordionContent>
                     </AccordionItem>
-                    // <FaqSingle key={index} data={faq} asAccordion />
                 ))}
             </Accordion>
         </Flex>
