@@ -10,9 +10,9 @@ export function Footer() {
             <Flex>
                 <p className="text-center">Stworzone z ❤️ © 2026 Varely Search</p>
             </Flex>
-            <Link href="#about" className="justify-self-center md:justify-self-end text-muted-foreground text-right">
+            {/* <Link href="#about" className="justify-self-center md:justify-self-end text-muted-foreground text-right">
                 Jak to działa?
-            </Link>
+            </Link> */}
         </footer>
     )
 }

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Flex } from "@/components/ui/flex";
 import { AnimatedText } from "./animated-text";
 import { apiClient } from "@/lib/api-client";
-import { AIResponseType, UsageType } from "@/stores/useChatStore";
+import { AIResponseType } from "@/stores/useChatStore";
 import { Marker, MarkerContent, MarkerIcon } from "../ui/marker";
 import { Spinner } from "../ui/spinner";
 import { Bot, Check, Copy } from "lucide-react";

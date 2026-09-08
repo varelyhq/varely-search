@@ -1,34 +1,34 @@
 import { WebResult, WebResults } from "./web-results";
-import { Video, Videos } from "./videos";
+import { Videos } from "./videos";
 import { Query } from "./query";
 import { SearchResponse, SearchResponseItems } from "@/types/search-type";
-import { News, NewsSingle } from "./news";
 import { Infoboxes } from "./infobox";
-import { Faq, FaqSingle } from "./faq";
+import { Faq } from "./faq";
 import { Location, Locations } from "./locations";
-import { Discussion, Discussions } from "./discussions";
+import { Discussions } from "./discussions";
 import { Flex } from "@/components/ui/flex";
+import { NewsCarousel } from "./news-carousel";
 
 export function SearchResults({ results }: { results: SearchResponse }) {
 
     const SearchResult = ({ type, all, index }: { type: keyof SearchResponseItems, all: boolean, index: number }) => {
 
-        const elements: { [key: string]: any } = {
+        const elements: { [key: string]: { all: any, single: any } } = {
             'web': {
                 all: WebResults,
                 single: WebResult
             },
             'videos': {
                 all: Videos,
-                single: Video
+                single: () => null
             },
             'news': {
-                all: News,
-                single: NewsSingle
+                all: NewsCarousel,
+                single: () => null
             },
             'faq': {
                 all: Faq,
-                single: FaqSingle
+                single: () => null
             },
             'locations': {
                 all: Locations,
@@ -36,7 +36,7 @@ export function SearchResults({ results }: { results: SearchResponse }) {
             },
             'discussions': {
                 all: Discussions,
-                single: Discussion
+                single: () => null
             }
         }
 
@@ -53,12 +53,7 @@ export function SearchResults({ results }: { results: SearchResponse }) {
             <Flex className="flex-row gap-24 items-start">
                 <Flex className="max-w-156 gap-8">
                     {results.mixed.main.map((mix, index) => (
-                        <SearchResult
-                            key={index}
-                            type={mix.type}
-                            all={mix.all}
-                            index={mix.index}
-                        />
+                        <SearchResult key={index} type={mix.type} all={mix.all} index={mix.index} />
                     ))}
                 </Flex>
                 <Infoboxes data={results.infobox} />

@@ -2,7 +2,7 @@ import { Flex } from "@/components/ui/flex"
 
 export default function ImagesLayout({ children }: { children: React.ReactNode }) {
     return (
-        <Flex className="flex-1 p-6">
+        <Flex className="flex-1 p-4 md:p-6">
             {children}
         </Flex>
     )

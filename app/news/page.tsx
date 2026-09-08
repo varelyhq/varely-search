@@ -1,37 +1,29 @@
-import { LoadingLayout } from "@/components/loading-layout"
-import { News } from "@/components/news"
-import { NewsFilters } from "@/components/news/news-filters"
+import { NewsFilters } from "@/components/news-filters"
 import { getNews } from "@/lib/api-news"
 import { Flex } from "@/components/ui/flex";
+import { WebResult } from "@/components/search/results/web-results";
+import { paramsToString } from "@/lib/utils";
+import { ParamsType } from "@/types/params-type";
+import { BottomNav } from "@/components/bottom-nav";
+import { EmptyQuery } from "@/components/empty-query";
+import { SearchError } from "@/components/search/search-error";
 
-type SearchPageProps = {
-    searchParams: Promise<{ q?: string }>
-}
+export default async function Page({ searchParams }: ParamsType) {
 
-export default async function Page({ searchParams }: SearchPageProps) {
+    const originalParams = await searchParams
+    if (!originalParams.q) return <EmptyQuery />
 
-    const params = await searchParams
+    const params = paramsToString(originalParams)
+    const { data, error } = await getNews(params)
 
-    if (!params.q) {
-        return <div>Wpisz coś, żeby wyszukać.</div>
-    }
-
-    const readyParams = new URLSearchParams()
-    Object.entries(params).forEach(([key, value]) => {
-        if (value !== undefined) readyParams.set(key, value)
-    })
-
-    const { data, error } = await getNews(readyParams.toString())
-
-    if (error || !data) return null
+    if (error || !data) return <SearchError />
 
     return (
-        <Flex className="flex-1">
-            <Flex className="max-w-156 gap-10">
-                <LoadingLayout />
-                <NewsFilters />
-                <News data={data} />
-            </Flex>
+        <Flex className="max-w-156 gap-8">
+            <NewsFilters />
+            {/* @ts-ignore TODO: FIX TYPING!!! */}
+            {data.results.map((item, index) => <WebResult key={index} data={item} />)}
+            <BottomNav />
         </Flex>
     )
 }

@@ -1,50 +1,41 @@
 import { AISearchSummary } from "@/components/ask/ai-search-summary";
 import { BottomNav } from "@/components/bottom-nav";
+import { EmptyQuery } from "@/components/empty-query";
 import { SearchResults } from "@/components/search/results";
-import { WebResultsSkeletons } from "@/components/search/results/web-results";
+import { WebResultsSkeletons } from "@/components/search/results/web-results/skeleton";
+import { SearchError } from "@/components/search/search-error";
 import { Flex } from "@/components/ui/flex";
 import { getSearch } from "@/lib/api-search";
+import { paramsToString } from "@/lib/utils";
+import { ParamsType } from "@/types/params-type";
 import { Suspense } from "react";
 
-type SearchPageProps = {
-    searchParams: Promise<{ q?: string; offset?: string; }>
+async function SearchResultsContent({ params }: { params: string }) {
+
+    const { data, error } = await getSearch(params)
+    if (error || !data) return <SearchError />
+
+    return <SearchResults results={data} />
 }
 
-export default async function Page({ searchParams }: SearchPageProps) {
+export default async function Page({ searchParams }: ParamsType) {
 
-    const params = await searchParams
+    const originalParams = await searchParams
+    if (!originalParams.q) return <EmptyQuery />
 
-    if (!params.q) {
-        return <div>Wpisz coś, żeby wyszukać.</div>
-    }
-
-    const readyParams = new URLSearchParams()
-    Object.entries(params).forEach(([key, value]) => {
-        if (value !== undefined) readyParams.set(key, value)
-    })
-
-    const queryKey = readyParams.toString()
+    const params = paramsToString(originalParams)
 
     return (
         <Flex className="flex-1">
-            {params.offset === '0' &&
+            {originalParams.offset === '0' &&
                 <Flex className="mb-6">
-                    <AISearchSummary query={params.q} />
+                    <AISearchSummary query={originalParams.q} />
                 </Flex>
             }
-            <Suspense key={queryKey} fallback={<WebResultsSkeletons />}>
-                <SearchResultsContent queryString={queryKey} />
+            <Suspense key={params} fallback={<WebResultsSkeletons />}>
+                <SearchResultsContent params={params} />
             </Suspense>
             <BottomNav />
         </Flex>
     )
-}
-
-async function SearchResultsContent({ queryString }: { queryString: string }) {
-
-    const { data: results, error } = await getSearch(queryString)
-
-    if (error || !results) return <Flex className="flex-1">Wystąpił błąd</Flex>
-
-    return <SearchResults results={results} />
 }
