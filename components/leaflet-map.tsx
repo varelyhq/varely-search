@@ -1,6 +1,7 @@
 "use client";
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+// @ts-ignore
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Flex } from "@/components/ui/flex";
@@ -25,16 +26,22 @@ export function LeafletMap({ lat, lon, zoom, title }: Props) {
         <Flex className='w-full h-87.5'>
             <MapContainer
                 key={`${lat}-${lon}`}
+                // @ts-ignore
                 center={[lat, lon]}
                 zoom={zoom}
                 scrollWheelZoom={false}
                 className="border border-border w-full h-87.5"
             >
                 <TileLayer
+                    // @ts-ignore
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={[lat, lon]} icon={markerIcon}>
+                <Marker
+                    position={[lat, lon]}
+                    // @ts-ignore
+                    icon={markerIcon}
+                >
                     <Popup>{title}</Popup>
                 </Marker>
             </MapContainer>

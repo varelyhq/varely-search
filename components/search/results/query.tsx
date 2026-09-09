@@ -1,8 +1,8 @@
 import { Flex } from "@/components/ui/flex";
-import { SearchQuery } from "@/types/SearchType";
+import { Query as QueryType } from "@/types/search-type";
 import Link from "next/link";
 
-export function Query({ query }: { query: SearchQuery }) {
+export function Query({ query }: { query: QueryType }) {
 
     /*
         {query.bad_results && 'bad'}
@@ -22,20 +22,18 @@ export function Query({ query }: { query: SearchQuery }) {
 
     return (
         <Flex className="mt-4">
-            <Flex>
-                <span>
-                    Wyniki dla {' '}
-                    <Link href={`/search?q=${query.altered}`}>
-                        <span className="text-blue-500 font-medium italic hover:underline">{query.altered}</span>
-                    </Link>
-                </span>
-                <span className="text-sm">
-                    Zamiast tego wyszukaj {' '}
-                    <Link href={`/search?q=${query.original}&spellcheck=false`}>
-                        <span className="text-blue-500 hover:underline">{query.original}</span>
-                    </Link>
-                </span>
-            </Flex>
+            <span>
+                Wyniki dla {' '}
+                <Link href={`/search?q=${query.altered}`}>
+                    <span className="text-blue-500 font-medium italic hover:underline">{query.altered}</span>
+                </Link>
+            </span>
+            <span className="text-sm">
+                Zamiast tego wyszukaj {' '}
+                <Link href={`/search?q=${query.original}&spellcheck=false`}>
+                    <span className="text-blue-500 hover:underline">{query.original}</span>
+                </Link>
+            </span>
         </Flex>
     )
 }

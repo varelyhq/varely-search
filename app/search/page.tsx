@@ -33,7 +33,9 @@ export default async function Page({ searchParams }: ParamsType) {
             <Suspense key={params} fallback={<WebResultsSkeletons />}>
                 <SearchResultsContent params={params} />
             </Suspense>
-            <BottomNav />
+            <Suspense fallback={null}>
+                <BottomNav />
+            </Suspense>
         </Flex>
     )
 }

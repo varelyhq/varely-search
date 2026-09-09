@@ -8,6 +8,7 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NextTopLoader from 'nextjs-toploader';
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -33,7 +34,9 @@ export default function RootLayout({
                 <ThemeProvider>
                     <TooltipProvider>
                         <Flex className='flex-1'>
-                            <Navbar />
+                            <Suspense fallback={null}>
+                                <Navbar />
+                            </Suspense>
                             {children}
                             <Footer />
                         </Flex>

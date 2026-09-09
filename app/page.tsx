@@ -3,6 +3,7 @@ import { Particles } from "@/components/particles"
 import { SearchInput } from "@/components/search/search-input"
 import { Container } from "@/components/ui/container"
 import { Flex } from "@/components/ui/flex"
+import { Suspense } from "react"
 
 export default function Page() {
 
@@ -12,7 +13,9 @@ export default function Page() {
             <Container className="relative flex-1 items-center my-0!">
                 <Flex className="h-full w-full max-w-xl gap-10 justify-center items-center -translate-y-[5vh] md:-translate-y-[8vh]">
                     <Logo />
-                    <SearchInput />
+                    <Suspense fallback={null}>
+                        <SearchInput />
+                    </Suspense>
                 </Flex>
             </Container>
         </Flex>

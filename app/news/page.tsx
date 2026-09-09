@@ -7,6 +7,7 @@ import { ParamsType } from "@/types/params-type";
 import { BottomNav } from "@/components/bottom-nav";
 import { EmptyQuery } from "@/components/empty-query";
 import { SearchError } from "@/components/search/search-error";
+import { Suspense } from "react";
 
 export default async function Page({ searchParams }: ParamsType) {
 
@@ -23,7 +24,9 @@ export default async function Page({ searchParams }: ParamsType) {
             <NewsFilters />
             {/* @ts-ignore TODO: FIX TYPING!!! */}
             {data.results.map((item, index) => <WebResult key={index} data={item} />)}
-            <BottomNav />
+            <Suspense fallback={null}>
+                <BottomNav />
+            </Suspense>
         </Flex>
     )
 }

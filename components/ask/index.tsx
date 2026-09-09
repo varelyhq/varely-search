@@ -1,6 +1,7 @@
 import { Messages } from "./messages";
 import { Flex } from "@/components/ui/flex";
 import { SendMessageBar } from "./send-message-bar";
+import { Suspense } from "react";
 
 export function AskAI() {
     return (
@@ -8,7 +9,9 @@ export function AskAI() {
             <Flex className="h-[calc(100vh-420px)] min-h-0">
                 <Messages />
             </Flex>
-            <SendMessageBar />
+            <Suspense fallback={null}>
+                <SendMessageBar />
+            </Suspense>
         </Flex>
     )
 }
