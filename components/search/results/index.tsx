@@ -51,7 +51,7 @@ export function SearchResults({ results }: { results: SearchResponse }) {
         <Flex>
             <Query query={results.query} />
             <Flex className="flex-row gap-24 items-start">
-                <Flex className="max-w-156 gap-8">
+                <Flex className="max-w-156 gap-8 w-full">
                     {results.mixed.main.map((mix, index) => (
                         <SearchResult key={index} type={mix.type} all={mix.all} index={mix.index} />
                     ))}

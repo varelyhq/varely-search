@@ -26,7 +26,7 @@ export function SafeSearchSelect({ minW }: { minW?: boolean }) {
 
     return (
         <Field>
-            <FieldLabel>Bezpieczne wyszukiwanie</FieldLabel>
+            <FieldLabel className="line-clamp-1">Bezpieczne wyszukiwanie</FieldLabel>
             <Flex className="flex-row">
                 <Select value={safeSearch} onValueChange={onValueChange}>
                     <SelectTrigger className={minW ? 'min-w-48' : ''}>

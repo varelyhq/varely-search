@@ -33,9 +33,11 @@ export function NavTabs() {
     const news_params = search_params // buildParams(searchParams, { freshness: undefined, offset: '0' })
     const maps_params = search_params // buildParams(searchParams, { freshness: undefined, offset: '0' })
 
+    // TODO: JUTRO wiadomości mają rozjebany layout na mobile
+
     return (
         <Flex className="gap-3">
-            <Flex className="flex-row gap-1 ml-48">
+            <Flex className="shrink-0 flex-row gap-1 ml-2 md:ml-48 max-w-full overflow-x-auto scrollbar-none">
                 <NavTab active={pathname === '/ask'} href={"/ask?" + ask_params}>Zapytaj AI</NavTab>
                 <NavTab active={pathname === '/search'} href={"/search?" + search_params}>Wszystko</NavTab>
                 <NavTab active={pathname === '/images'} href={"/images?" + images_params}>Grafika</NavTab>

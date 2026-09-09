@@ -25,7 +25,7 @@ export function Freshness() {
         <Field>
             <FieldLabel>Data publikacji</FieldLabel>
             <Select open={isOpen} onOpenChange={setOpen} onValueChange={onValueChange} defaultValue=''>
-                <SelectTrigger className='min-w-48'>
+                <SelectTrigger className='md:min-w-48'>
                     <SelectValue placeholder="Wybierz okres czasu">
                         {freshness_translations[params.get('freshness') || '']}
                     </SelectValue>

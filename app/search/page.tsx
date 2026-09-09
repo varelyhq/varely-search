@@ -28,9 +28,7 @@ export default async function Page({ searchParams }: ParamsType) {
     return (
         <Flex className="flex-1">
             {originalParams.offset === '0' &&
-                <Flex className="mb-6">
-                    <AISearchSummary query={originalParams.q} />
-                </Flex>
+                <AISearchSummary query={originalParams.q} />
             }
             <Suspense key={params} fallback={<WebResultsSkeletons />}>
                 <SearchResultsContent params={params} />

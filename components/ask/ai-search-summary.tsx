@@ -82,7 +82,7 @@ export function AISearchSummary({ query }: { query: string }) {
     if (!ai_summary) return null
 
     return (
-        <Flex className="max-w-156">
+        <Flex className="max-w-156 mb-6">
             {response ? (
                 <Flex className="text-sm gap-1">
                     <Flex className="flex-1 flex-row gap-2 items-center">

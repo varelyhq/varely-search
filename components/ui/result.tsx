@@ -42,7 +42,7 @@ export function ResultMeta({ children }: { children?: React.ReactNode }) {
 
 export function ResultTitle({ children }: { children?: String }) {
     return (
-        <h2 className="text-blue-600 dark:text-blue-400 visited:text-purple-500 group-hover:underline">{children}</h2>
+        <h2 className="text-blue-600 dark:text-blue-400 visited:text-purple-500 group-hover:underline line-clamp-2">{children}</h2>
     )
 }
 
@@ -66,7 +66,7 @@ export function Result({ children }: { children?: React.ReactNode }) {
 
 export function ResultContent({ children }: { children?: React.ReactNode }) {
     return (
-        <Flex className="gap-1">{children}</Flex>
+        <Flex className="gap-1 w-full">{children}</Flex>
     )
 }
 

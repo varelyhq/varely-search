@@ -7,10 +7,10 @@ export function SearchSettings() {
 
     return (
         <ResultsContainer className="flex-row gap-3 py-0">
-            <Flex>
+            <Flex className="flex-1">
                 <Freshness />
             </Flex>
-            <Flex>
+            <Flex className="flex-1">
                 <SafeSearchSelect />
             </Flex>
         </ResultsContainer>
