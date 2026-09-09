@@ -23,8 +23,8 @@ export function BottomNav() {
     const nextPage = offset < 9 ? () => changePageOffset(offset + 1) : undefined
 
     return (
-        <Pagination className="justify-start mt-8">
-            <PaginationContent>
+        <Pagination className="justify-start mt-8 max-w-full">
+            <PaginationContent className="flex flex-wrap">
                 <PaginationItem>
                     <PaginationPrevious text="Poprzedni" onClick={prevPage} className="cursor-pointer" />
                 </PaginationItem>

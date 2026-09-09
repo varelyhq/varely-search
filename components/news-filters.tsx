@@ -23,7 +23,7 @@ export function NewsFilters() {
                 <ListFilter size={12} />
                 <span className="text-xs text-muted-foreground">Filtruj</span>
             </Flex>
-            <Flex className="flex-row gap-2">
+            <Flex className="flex-row flex-wrap gap-2">
                 {freshness.map(option => (
                     <Button
                         key={option.value}

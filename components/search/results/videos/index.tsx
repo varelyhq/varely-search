@@ -42,7 +42,7 @@ export function Videos({ data }: { data: VideosType }) {
                 <SectionTitle>Filmy</SectionTitle>
                 <SeeMoreVideosButton />
             </SectionHeader>
-            <Flex className="grid grid-cols-2 gap-2">
+            <Flex className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {data.mutated_by_goggles && 'mutated_by_goggles'}
                 {data.results.map((video, index) => <Video data={video} key={index} />)}
             </Flex>

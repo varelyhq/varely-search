@@ -8,7 +8,7 @@ import { VideoDuration } from "@/components/ui/video";
 import { cn } from "@/lib/utils";
 
 function VideoThumbnail({ className, ...rest }: React.ImgHTMLAttributes<HTMLImageElement>) {
-    return <img className="rounded-lg object-cover h-full w-full" {...rest} />
+    return <img className={cn("rounded-lg object-cover h-full w-full", className)} {...rest} />
 }
 
 function VideoPlayIcon() {
@@ -35,18 +35,28 @@ export function WebResultVideo({ data }: { data: SearchResult }) {
     return (
         <Result>
             <ResultContent>
-                <ResultHeader href={data.url}>
-                    <ResultTop>
-                        <ResultFavicon src={data.meta_url.favicon} alt={data.meta_url.netloc} />
-                        <ResultMeta>
-                            <ResultMetaTitle>{title}</ResultMetaTitle>
-                            <ResultMetaPath>{data.meta_url.netloc} {data.meta_url.path}</ResultMetaPath>
-                        </ResultMeta>
-                    </ResultTop>
-                    <ResultTitle>{data.title}</ResultTitle>
-                </ResultHeader>
-
                 <Flex className="flex-row gap-2">
+                    <VideoImage href={data.url} className="md:hidden h-auto w-1/3">
+                        <VideoThumbnail
+                            src={data.video?.thumbnail?.src || data.thumbnail?.src}
+                            alt={data.video?.thumbnail?.alt || data.thumbnail?.alt}
+                        />
+                        <VideoDuration>{data.video.duration}</VideoDuration>
+                        <VideoPlayIcon />
+                    </VideoImage>
+                    <ResultHeader href={data.url}>
+                        <ResultTop>
+                            <ResultFavicon src={data.meta_url.favicon} alt={data.meta_url.netloc} />
+                            <ResultMeta>
+                                <ResultMetaTitle>{title}</ResultMetaTitle>
+                                <ResultMetaPath>{data.meta_url.netloc} {data.meta_url.path}</ResultMetaPath>
+                            </ResultMeta>
+                        </ResultTop>
+                        <ResultTitle>{data.title}</ResultTitle>
+                    </ResultHeader>
+                </Flex>
+
+                <Flex className="hidden md:flex flex-row gap-2">
                     <VideoImage href={data.url} className="flex-1/4">
                         <VideoThumbnail
                             src={data.video?.thumbnail?.src || data.thumbnail?.src}

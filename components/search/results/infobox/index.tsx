@@ -180,7 +180,7 @@ export function Infoboxes({ data }: { data: InfoboxType }) {
     if (infobox?.type !== 'graph') return null;
 
     return (
-        <Flex>
+        <Flex className="hidden md:flex">
             {[infobox.results[0]].map((e, index) => (
                 <Infobox key={index} data={e} />
             ))}

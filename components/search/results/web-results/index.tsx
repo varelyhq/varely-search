@@ -16,16 +16,19 @@ export function WebResult({ data }: { data: SearchResultType }) {
     return (
         <Result>
             <ResultContent>
-                <ResultHeader href={result.url}>
-                    <ResultTop>
-                        <ResultFavicon src={result.meta_url.favicon} alt={result.meta_url.netloc} />
-                        <ResultMeta>
-                            <ResultMetaTitle>{result.profile.name}</ResultMetaTitle>
-                            <ResultMetaPath>{result.meta_url.netloc} {result.meta_url.path}</ResultMetaPath>
-                        </ResultMeta>
-                    </ResultTop>
-                    <ResultTitle>{result.title}</ResultTitle>
-                </ResultHeader>
+                <Flex className="flex-row gap-4">
+                    <ResultHeader href={result.url}>
+                        <ResultTop>
+                            <ResultFavicon src={result.meta_url.favicon} alt={result.meta_url.netloc} />
+                            <ResultMeta>
+                                <ResultMetaTitle>{result.profile.name}</ResultMetaTitle>
+                                <ResultMetaPath>{result.meta_url.netloc} {result.meta_url.path}</ResultMetaPath>
+                            </ResultMeta>
+                        </ResultTop>
+                        <ResultTitle>{result.title}</ResultTitle>
+                    </ResultHeader>
+                    <SafeThumbnail thumbnail={result.thumbnail} className="h-full max-h-22 max-w-22 w-full md:hidden" />
+                </Flex>
 
                 <ResultDescription age={result.age}>{result.description}</ResultDescription>
 
@@ -34,7 +37,7 @@ export function WebResult({ data }: { data: SearchResultType }) {
                 <DeepResults deep_results={result.deep_results} />
 
             </ResultContent>
-            <SafeThumbnail thumbnail={result.thumbnail} />
+            <SafeThumbnail thumbnail={result.thumbnail} className="hidden md:block" />
         </Result>
     )
 }

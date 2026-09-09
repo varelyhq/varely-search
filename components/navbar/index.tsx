@@ -13,13 +13,25 @@ import { SearchInput } from "../search/search-input"
 import { Logo } from "../logo"
 import { NavTabs } from "./nav-tabs"
 
+function Settings() {
+    return (
+        <Flex className="flex-row gap-2 items-center">
+            <ThemeSwitcher />
+            <Flex className="not-md:hidden">
+                <LanguageSwitcher />
+            </Flex>
+            <SettingsSheet />
+        </Flex>
+    )
+}
+
 export function Navbar() {
 
     const pathname = usePathname()
 
     return (
         <>
-            <Flex className="flex-row p-3 gap-2 sticky top-0 z-40 bg-background">
+            <Flex className="md:flex-row p-3 gap-2 sticky top-0 z-40 bg-background justify-between">
 
                 {pathname === '/' &&
                     <Link href='https://github.com/varelyhq/varely-search/' target='_blank'>
@@ -32,11 +44,14 @@ export function Navbar() {
 
                 {pathname !== '/' ?
                     <Suspense fallback={null}>
-                        <Flex className="flex-row justify-start items-center gap-4">
-                            <Flex className="w-36 items-center">
+                        <Flex className="md:flex-row md:justify-start md:items-center gap-4 flex-1">
+                            <Flex className="md:w-36 flex-row justify-between md:justify-center shrink-0">
                                 <Logo size='sm' />
+                                <Flex className="md:hidden">
+                                    <Settings />
+                                </Flex>
                             </Flex>
-                            <Flex className="w-xl">
+                            <Flex className="md:max-w-xl md:flex-1">
                                 <SearchInput />
                             </Flex>
                         </Flex>
@@ -44,18 +59,13 @@ export function Navbar() {
                     : null
                 }
 
-                <Flex className="ml-auto flex-row gap-2 items-center">
-                    <Flex className="not-sm:hidden">
-                        <ThemeSwitcher />
-                    </Flex>
-                    <LanguageSwitcher />
-                    <SettingsSheet />
+                <Flex className="hidden md:flex">
+                    <Settings />
                 </Flex>
 
             </Flex>
 
             {pathname !== '/' && <NavTabs />}
-
         </>
     )
 }

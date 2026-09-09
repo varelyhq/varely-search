@@ -17,7 +17,7 @@ export function NewsCarousel({ data }: { data: NewsType }) {
             <Carousel>
                 <CarouselContent>
                     {data.results.map((item, index) => (
-                        <CarouselItem key={index} className="basis-1/3">
+                        <CarouselItem key={index} className="basis-1/2 md:basis-1/3">
                             <NewsItem href={item.url}>
                                 <NewsItemThumbnail src={item.thumbnail.src} alt={item.thumbnail.alt} />
                                 <NewsItemMeta>
@@ -30,8 +30,8 @@ export function NewsCarousel({ data }: { data: NewsType }) {
                         </CarouselItem>
                     ))}
                 </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+                <CarouselPrevious className='hidden md:inline-flex' />
+                <CarouselNext className='hidden md:inline-flex' />
             </Carousel>
         </Section>
     )
